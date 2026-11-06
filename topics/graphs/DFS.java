@@ -1,30 +1,38 @@
+import java.io.*;
 import java.util.*;
 
-class DFS {
-    static List<List<Integer>> graph(int n) {
-        List<List<Integer>> adj = new ArrayList<>();
-        for (int i = 0; i < n; i++)
-            adj.add(new ArrayList<>());
-        return adj; // adj.get(u).add(v)
-    }
-    static void dfs(List<List<Integer>> adj, int s,
-                    boolean[] seen) {
-        Deque<Integer> stack = new ArrayDeque<>();
-        seen[s] = true;
-        stack.push(s);
-        while (!stack.isEmpty()) {
-            int u = stack.pop(); // process u here
-            for (int v : adj.get(u)) {
-                if (seen[v]) continue;
-                seen[v] = true;
-                stack.push(v);
-            }
-        }
-    }
-    static boolean[] forest(List<List<Integer>> adj) {
-        boolean[] seen = new boolean[adj.size()];
-        for (int u = 0; u < adj.size(); u++)
-            if (!seen[u]) dfs(adj, u, seen);
-        return seen;
-    }
+
+public class DFSDemo {
+      static List<Integer>[] adj;
+      static boolean[] visited;
+      static int n = 6;
+
+
+      public static void main(String[] args) throws IOException {
+             visited = new boolean[n];
+
+             /*
+              * Define adjacency list and read in problem-specific input
+              *
+              * In this example, we've provided "dummy input" that's
+              * reflected in the GIF above to help illustrate the
+              * order of the recursive calls.
+              */
+             adj = new ArrayList[n];
+             for (int i = 0; i < n; i++) { adj[i] = new ArrayList<>(); }
+             adj[0] = new ArrayList<>(Arrays.asList(1, 2, 4));
+             adj[1] = new ArrayList<>(Arrays.asList(3, 4));
+             adj[2] = new ArrayList<>(Arrays.asList(5));
+
+             for (int i = 0; i < n; i++) {
+                     // iterate over all connected components in the graph
+                     if (!visited[i]) { dfs(i); }
+             }
+      }
+
+      static void dfs(int currentNode) {
+             if (visited[currentNode]) { return; }
+   visited[currentNode] = true;
+   for (int neighbor : adj[currentNode]) { dfs(neighbor); }
+   }
 }

@@ -1,18 +1,32 @@
-import java.util.*;
+import java.util.ArrayList;
 
-class Lists {
-    static <T> void operations(T x, T y) {
-        ArrayList<T> a = new ArrayList<>();
-        a.add(x);          // append
-        a.add(0, y);       // insert, shifting suffix
-        T first = a.get(0);
-        a.set(0, x);       // replace
-        int size = a.size();
-        boolean found = a.contains(x);
-        a.remove(0);      // remove by index
-        a.remove(x);      // remove first equal value
-        // For ArrayList<Integer>, remove value 7:
-        // a.remove(Integer.valueOf(7));
-        for (T value : a) System.out.println(value);
+public class Main {
+
+    public static void main(String[] args) {
+
+      // Create an ArrayList
+      ArrayList<String> fruits = new ArrayList<>();
+
+      // 1. Add elements
+      fruits.add("Apple");
+      fruits.add("Banana");
+      fruits.add(1, "Mango"); // Inserts at index 1
+
+      // 2. Access and modify
+      String firstFruit = fruits.get(0); // "Apple"
+      fruits.set(2, "Blackberry");    // Replaces "Banana" with "Blackberry"
+
+        // 3. Information
+        int totalItems = fruits.size(); // 3
+        boolean hasApple = fruits.contains("Apple"); // true
+
+        // 4. Remove elements
+        fruits.remove(1);               // Removes "Mango"
+        fruits.remove("Apple");           // Removes "Apple"
+
+        // 5. Functional Loop (Java 8+)
+        for (String fruit : fruits) {
+            System.out.println("Fruit name: " + fruit);
+        }
     }
 }

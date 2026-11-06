@@ -129,6 +129,19 @@ def local_block(block, languages, registered):
         tex.append(r"\ReferenceFact{" + tex_escape(fact["title"]) + "} "
                    + fact.get("latex", tex_escape(fact["text"])) + r"\par")
         text += [fact["title"] + ": " + fact["text"], ""]
+    for listing in block.get("text_files", []):
+        path = Path(listing["path"])
+        if path.is_absolute() or ".." in path.parts:
+            raise ValueError(f"Invalid text listing path: {path}")
+        if path.suffix in {".cpp", ".hpp", ".java", ".py"}:
+            if path in registered:
+                raise ValueError(f"Invalid/duplicate text listing path: {path}")
+            registered.add(path)
+        source = (ROOT / path).read_text()
+        tex += [rf"\Snippet{{{tex_escape(listing['title'])}}}{{{tex_escape(listing.get('language', 'text'))}}}"
+                + "{" + tex_escape(listing.get("notes", "")) + "}",
+                rf"\lstinputlisting[language={{{listing.get('listings', 'raw')}}}]{{../{path}}}"]
+        text += [listing["title"], f"File: {path}", listing.get("notes", ""), source, ""]
     for entry in block.get("snippets", []):
         path = Path(entry["path"])
         if path.is_absolute() or ".." in path.parts or path in registered:
@@ -136,10 +149,14 @@ def local_block(block, languages, registered):
         registered.add(path)
         lang = languages[entry["language"]]
         source = (ROOT / path).read_text()
-        tex += [rf"\Snippet{{{tex_escape(entry['title'])}}}{{{lang['label']}}}"
+        label = entry.get("source")
+        if label is None:
+            label = "SHUBAN" if str(path).startswith("topics/modular_arithmetic/") or str(path).startswith("topics/collections/cpp_") or str(path).startswith("topics/strings/cpp_") or str(path).startswith("topics/search/cpp_") else "RACHEL"
+        title = entry["title"] + " (" + label + ")"
+        tex += [rf"\Snippet{{{tex_escape(title)}}}{{{lang['label']}}}"
                 + "{" + tex_escape(entry.get("notes", "")) + "}",
                 rf"\lstinputlisting[language={{{lang['listings']}}}]{{../{path}}}"]
-        text += [f"{entry['title']} [{lang['label']}]", f"File: {path}",
+        text += [f"{title} [{lang['label']}]", f"File: {path}",
                  entry.get("notes", ""), source, ""]
     if "table" in block:
         table = block["table"]
@@ -178,6 +195,9 @@ def render(data, topics, name, kactl):
     for topic in topics:
         tex.append(rf"\Topic{{{tex_escape(topic['title'])}}}{{{topic['id']}}}")
         plain += [topic["title"], "=" * len(topic["title"])]
+        if topic.get("front"):
+            t, p = local_block(topic["front"], data["languages"], registered)
+            tex.append(t); plain += ["Source section index", p]
         t, p = local_block(topic, data["languages"], registered)
         tex.append(t); plain.append(p)
         for block in topic.get("blocks", []):
@@ -187,7 +207,7 @@ def render(data, topics, name, kactl):
         if topic.get("kactl_chapter"):
             t, p = kactl.chapter(topic["kactl_chapter"])
             tex.append(t); plain.append(p)
-    tex += [r"\end{multicols}\label{last-page}", r"\end{document}", ""]
+    tex += [r"\label{last-page}\end{multicols}", r"\end{document}", ""]
     write_if_changed(DOC / f"{name}.tex", "\n".join(tex))
     write_if_changed(DOC / f"{name}.txt", "\n".join(plain))
     return registered

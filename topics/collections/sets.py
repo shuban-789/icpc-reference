@@ -1,14 +1,19 @@
-def set_operations(values, x, more):
-    s = set(values)          # {} is an empty dict
-    s.add(x)                # duplicates have no effect
-    s.update(more)          # add an iterable
-    present = x in s
-    s.remove(x)             # KeyError if absent
-    s.discard(x)            # safe if absent
-    item = s.pop() if s else None  # arbitrary item
-    size = len(s)
-    empty = not s
-    for value in s:
-        print(value)
-    s.clear()
-    return present, item, size, empty
+my_set = {1, 2, 3}
+
+
+my_set.add(4)
+
+
+my_set.update([5, 6])
+
+
+my_set.remove(2)
+
+
+my_set.discard(99)
+
+
+item = my_set.pop()
+
+
+my_set.clear()

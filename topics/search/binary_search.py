@@ -1,22 +1,26 @@
-def binary_search(a, target):
-    lo, hi = 0, len(a) - 1
-    while lo <= hi:
-        mid = lo + (hi - lo) // 2
-        if a[mid] == target:
-            return mid
-        if a[mid] < target:
-            lo = mid + 1
-        else:
-            hi = mid - 1
+def binary_search(arr: list[int], target: int) -> int:
+    left, right = 0, len(arr) - 1
+    while left <= right:
+      mid = left + (right - left) // 2
+      if arr[mid] == target:
+        return mid
+      elif arr[mid] < target:
+        left = mid + 1
+      else:
+        right = mid - 1
     return -1
 
 
-def first_true(lo, hi, predicate):
-    # Search [lo, hi); return hi if all are false.
-    while lo < hi:
-        mid = lo + (hi - lo) // 2
-        if predicate(mid):
-            hi = mid
-        else:
-            lo = mid + 1
-    return lo
+def binary_search_boundary(arr: list) -> int:
+    def condition(value) -> bool:
+      pass # Returns True/False evaluation
+
+
+    left, right = 0, len(arr)
+    while left < right:
+      mid = left + (right - left) // 2
+      if condition(mid):
+        right = mid
+      else:
+        left = mid + 1
+    return left

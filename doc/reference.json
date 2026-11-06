@@ -2,12 +2,12 @@
   "layout": {
     "paper": "a4paper",
     "columns": 3,
-    "margin_mm": 6,
-    "column_gap_mm": 4,
-    "body_size_pt": 7.4,
-    "body_leading_pt": 8.0,
-    "code_size_pt": 7.0,
-    "code_leading_pt": 7.4,
+    "margin_mm": 5,
+    "column_gap_mm": 3,
+    "body_size_pt": 7.2,
+    "body_leading_pt": 7.8,
+    "code_size_pt": 6.8,
+    "code_leading_pt": 7.1,
     "header": "ICPC REFERENCE | KACTL + team notes",
     "orientation": "landscape",
     "max_pages": 25,
@@ -31,12 +31,27 @@
     {
       "title": "Programming languages",
       "notes": "Indices are zero-based throughout. Graph vertices are 0..n-1. Snippets are independent; adapt the entry point to the judge's input format. KACTL C++ algorithms use the rep/all/sz macros and ll/pii/vi aliases in the starter. Headers are independent recipes; do not concatenate the entire library.",
+      "front": {
+        "title": "Source section index",
+        "notes": "Section numbers below are the quick lookup labels used in this sheet. Rachel sections reproduce the supplied RachelDu Code Templates reference; Shuban sections are additions and organization notes.",
+        "facts": [
+          {
+            "title": "R1\u2013R16 (RACHEL)",
+            "text": "R1 Java Template; R2 Python Template; R3 Floodfill; R4 Binary Search on Target; R5 Advanced Binary Search; R6 DFS; R7 BFS; R8 ArrayDeque; R9 HashSet in Python; R10 HashSet in Java; R11 HashMap in Python; R12 HashMap in Java; R13 ArrayList; R14 Arrays; R15 Bitwise techniques (1 Odd/Even, 2 Flags, 3 XOR swap, 4 shifts, 5 unique value); R16 Time Complexity."
+          },
+          {
+            "title": "S1\u2013S4 (SHUBAN)",
+            "text": "S1 C++ contest template; S2 C++ standard-library calls (containers, strings, lambdas and sorting); S3 modular arithmetic guide and runtime-modulus helpers; S4 this compact source index and catalogue organization."
+          }
+        ]
+      },
       "snippets": [
         {
           "title": "C++ contest template",
           "path": "cpp/template.cpp",
           "notes": "The supplied template, including all helpers. print/println concatenate arguments: pass spaces explicitly. flintln flushes with endl; dbg writes to stdout, so remove debug calls before submission.",
-          "language": "cpp"
+          "language": "cpp",
+          "source": "SHUBAN"
         },
         {
           "title": "Java template",
@@ -51,7 +66,45 @@
           "language": "python"
         }
       ],
-      "id": "programming-languages"
+      "id": "programming-languages",
+      "blocks": [
+        {
+          "title": "C++ standard-library quick reference (SHUBAN)",
+          "notes": "The following are reference notes and calls; the source files are included verbatim. Rachel material is labelled RACHEL; this added API and modular guidance is labelled SHUBAN.",
+          "text_files": [
+            {
+              "title": "Container calls and costs (SHUBAN)",
+              "path": "topics/collections/cpp_containers.hpp",
+              "language": "C++",
+              "listings": "C++"
+            },
+            {
+              "title": "Strings, parsing and input (SHUBAN)",
+              "path": "topics/strings/cpp_strings.hpp",
+              "language": "C++",
+              "listings": "C++"
+            },
+            {
+              "title": "Lambdas, sort and bounds (SHUBAN)",
+              "path": "topics/search/cpp_sort_lambdas.hpp",
+              "language": "C++",
+              "listings": "C++"
+            },
+            {
+              "title": "C++ Makefile (SHUBAN)",
+              "path": "topics/programming_languages/cpp_makefile.txt",
+              "language": "make",
+              "listings": "raw"
+            }
+          ],
+          "facts": [
+            {
+              "title": "Python sort and lambdas (RACHEL)",
+              "text": "sorted(iterable, key=..., reverse=...) returns a new list; list.sort(key=..., reverse=...) sorts in place and returns None. A lambda is an anonymous expression such as lambda x: x[1], commonly passed as key=. The key is evaluated once per item.\n"
+            }
+          ]
+        }
+      ]
     },
     {
       "title": "Contest & debugging",
@@ -152,14 +205,7 @@
               "text": "vector reallocation invalidates all iterators/references; erase invalidates at/after the position. Tree insert preserves iterators, erase invalidates only erased elements. Hash rehash invalidates iterators. Avoid modifying a container while range-iterating unless validity is guaranteed."
             }
           ],
-          "snippets": [
-            {
-              "language": "cpp",
-              "title": "C++ container API",
-              "path": "topics/collections/cpp_containers.hpp",
-              "notes": "Independent call examples; replace values/types as needed. bitset<N> uses a compile-time N; bitwise operations process machine words. C++17 membership: find(x) != end() or count(x)."
-            }
-          ]
+          "snippets": []
         },
         {
           "title": "Arrays & collections",
@@ -360,13 +406,21 @@
               "text": "Index/size: O(1); substr copies O(count); middle insert/erase/replace: O(n); find can be O(n*m) for pattern length m. Appending a character is amortized O(1). string_view is a non-owning view: the source must outlive it and not invalidate its storage. Byte indexing is not Unicode character indexing."
             }
           ],
+          "snippets": []
+        }
+      ]
+    },
+    {
+      "title": "Prefix sums",
+      "id": "prefix-sums",
+      "blocks": [
+        {
+          "title": "Prefix sums (SHUBAN)",
+          "facts": [
+            {"title": "Use", "text": "Build once in O(n) for 1D or O(rows*cols) for 2D; answer each half-open range in O(1). Use long long when accumulated values can exceed int. For inclusive [l,r], query sum(l,r+1)."}
+          ],
           "snippets": [
-            {
-              "language": "cpp",
-              "title": "String calls, parsing & input",
-              "path": "topics/strings/cpp_strings.hpp",
-              "notes": "substr(pos,count) truncates count at the end but throws if pos > size(). npos is unsigned: compare with string::npos; never test p >= 0. cctype functions require unsigned char conversion (or EOF)."
-            }
+            {"title": "One- and two-dimensional prefix sums", "path": "topics/prefix_sums/prefix_sums.hpp", "notes": "All indices are zero-based. The 2D constructor assumes rectangular rows; empty input is supported.", "language": "cpp", "source": "SHUBAN"}
           ]
         }
       ]
@@ -392,14 +446,7 @@
               "text": "sort and nth_element need random-access iterators. unique removes adjacent duplicates logically and returns a new end: erase the tail. next_permutation returns false and resets to ascending at the final permutation. min_element/max_element return end() for empty ranges; accumulate(...,0LL) uses a 64-bit sum."
             }
           ],
-          "snippets": [
-            {
-              "language": "cpp",
-              "title": "Sorting, bounds & lambda syntax",
-              "path": "topics/search/cpp_sort_lambdas.hpp",
-              "notes": "All iterator ranges are half-open. stable_sort is O(n log n) with enough extra memory, otherwise up to O(n log^2 n) comparisons. Lambda recursion shown below requires passing itself explicitly: fib(fib,n)."
-            }
-          ]
+          "snippets": []
         },
         {
           "title": "Search & dynamic programming",

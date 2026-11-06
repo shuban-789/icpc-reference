@@ -2,12 +2,12 @@
 \def\Paper{a4paper}
 \def\Orientation{landscape}
 \def\Columns{3}
-\def\Margin{6}
-\def\ColumnGap{4}
-\def\BodySize{7.4}
-\def\BodyLeading{8.0}
-\def\CodeSize{7.0}
-\def\CodeLeading{7.4}
+\def\Margin{5}
+\def\ColumnGap{3}
+\def\BodySize{7.2}
+\def\BodyLeading{7.8}
+\def\CodeSize{6.8}
+\def\CodeLeading{7.1}
 \def\CodeEmptyLines{0}
 \def\SheetHeader{ICPC REFERENCE | KACTL + team notes}
 \input{layout.tex}
@@ -24,17 +24,33 @@
 \MenuEntry{8}{Graphs \& grids}{graphs}
 \MenuEntry{9}{Geometry}{geometry}
 \MenuEntry{10}{Strings}{strings}
-\MenuEntry{11}{Search, DP \& optimization}{search-dp}
-\MenuEntry{12}{Algorithm checklist}{techniques}
+\MenuEntry{11}{Prefix sums}{prefix-sums}
+\MenuEntry{12}{Search, DP \& optimization}{search-dp}
+\MenuEntry{13}{Algorithm checklist}{techniques}
 \par\smallskip {\small Source: \href{https://github.com/kth-competitive-programming/kactl/tree/45ee3fa7e5263c0085e2dcee42c100eb1c30121a}{KACTL 45ee3fa} + supplied team notes. Templates and prerequisites: Programming languages in the full reference.}\par\smallskip
 \Topic{Programming languages}{programming-languages}
+\TopicNote{Section numbers below are the quick lookup labels used in this sheet. Rachel sections reproduce the supplied RachelDu Code Templates reference; Shuban sections are additions and organization notes.}
+\ReferenceFact{R1–R16 (RACHEL)} R1 Java Template; R2 Python Template; R3 Floodfill; R4 Binary Search on Target; R5 Advanced Binary Search; R6 DFS; R7 BFS; R8 ArrayDeque; R9 HashSet in Python; R10 HashSet in Java; R11 HashMap in Python; R12 HashMap in Java; R13 ArrayList; R14 Arrays; R15 Bitwise techniques (1 Odd/Even, 2 Flags, 3 XOR swap, 4 shifts, 5 unique value); R16 Time Complexity.\par
+\ReferenceFact{S1–S4 (SHUBAN)} S1 C++ contest template; S2 C++ standard-library calls (containers, strings, lambdas and sorting); S3 modular arithmetic guide and runtime-modulus helpers; S4 this compact source index and catalogue organization.\par
 \TopicNote{Indices are zero-based throughout. Graph vertices are 0..n-1. Snippets are independent; adapt the entry point to the judge's input format. KACTL C++ algorithms use the rep/all/sz macros and ll/pii/vi aliases in the starter. Headers are independent recipes; do not concatenate the entire library.}
-\Snippet{C++ contest template}{C++}{The supplied template, including all helpers. print/println concatenate arguments: pass spaces explicitly. flintln flushes with endl; dbg writes to stdout, so remove debug calls before submission.}
+\Snippet{C++ contest template (SHUBAN)}{C++}{The supplied template, including all helpers. print/println concatenate arguments: pass spaces explicitly. flintln flushes with endl; dbg writes to stdout, so remove debug calls before submission.}
 \lstinputlisting[language={C++}]{../cpp/template.cpp}
-\Snippet{Java template}{Java}{Submit as Main.java. next() skips blank lines and returns null at EOF; nextInt() requires an available integer token. For a file, replace the reader with new FileReader("testfile.in"). Flush output after each interactive query.}
+\Snippet{Java template (RACHEL)}{Java}{Submit as Main.java. next() skips blank lines and returns null at EOF; nextInt() requires an available integer token. For a file, replace the reader with new FileReader("testfile.in"). Flush output after each interactive query.}
 \lstinputlisting[language={Java}]{../java/Main.java}
-\Snippet{Python template}{Python}{This example expects exactly three integers on one line. For larger input, use sys.stdin.buffer.readline; for interactive output, print(..., flush=True).}
+\Snippet{Python template (RACHEL)}{Python}{This example expects exactly three integers on one line. For larger input, use sys.stdin.buffer.readline; for interactive output, print(..., flush=True).}
 \lstinputlisting[language={Python}]{../python/template.py}
+\subsection{C++ standard-library quick reference (SHUBAN)}
+\TopicNote{The following are reference notes and calls; the source files are included verbatim. Rachel material is labelled RACHEL; this added API and modular guidance is labelled SHUBAN.}
+\ReferenceFact{Python sort and lambdas (RACHEL)} sorted(iterable, key=..., reverse=...) returns a new list; list.sort(key=..., reverse=...) sorts in place and returns None. A lambda is an anonymous expression such as lambda x: x[1], commonly passed as key=. The key is evaluated once per item.
+\par
+\Snippet{Container calls and costs (SHUBAN)}{C++}{}
+\lstinputlisting[language={C++}]{../topics/collections/cpp_containers.hpp}
+\Snippet{Strings, parsing and input (SHUBAN)}{C++}{}
+\lstinputlisting[language={C++}]{../topics/strings/cpp_strings.hpp}
+\Snippet{Lambdas, sort and bounds (SHUBAN)}{C++}{}
+\lstinputlisting[language={C++}]{../topics/search/cpp_sort_lambdas.hpp}
+\Snippet{C++ Makefile (SHUBAN)}{make}{}
+\lstinputlisting[language={raw}]{../topics/programming_languages/cpp_makefile.txt}
 \Topic{Contest \& debugging}{contest}
 
 \subsection{Complexity quick reference}
@@ -311,25 +327,23 @@ The expected time until absorption, when the initial state is $i$, is $t_i = 1+\
 \ReferenceFact{Costs} vector: index O(1), push\_back amortized O(1), middle insert/erase O(n). deque: index/end operations O(1), middle edits O(n). stack/queue: O(1) on default storage. Heap: top O(1), push/pop O(log n).\par
 \ReferenceFact{Ordered vs hashed} set/map: lookup/insert/key erase O(log n); multiset allows duplicates; count/equal\_range also depend on matches. unordered\_set/map: expected O(1), worst O(n) per lookup/update; adversarial hashes can be slow. Use member lower\_bound on trees; std::lower\_bound can take O(n) iterator steps.\par
 \ReferenceFact{Iterator lifetime} vector reallocation invalidates all iterators/references; erase invalidates at/after the position. Tree insert preserves iterators, erase invalidates only erased elements. Hash rehash invalidates iterators. Avoid modifying a container while range-iterating unless validity is guaranteed.\par
-\Snippet{C++ container API}{C++}{Independent call examples; replace values/types as needed. bitset\textless{}N\textgreater{} uses a compile-time N; bitwise operations process machine words. C++17 membership: find(x) != end() or count(x).}
-\lstinputlisting[language={C++}]{../topics/collections/cpp_containers.hpp}
 \subsection{Arrays \& collections}
 \TopicNote{Hash tables: expected O(1) lookup/insert/remove. Java hash iteration costs O(size+capacity). Python dict preserves insertion order; hash sets and Java HashMap have no guaranteed order. Array/list indexing is O(1); append is amortized O(1); middle insertion/removal and value search are O(n). Java generics use wrappers (Integer, not int).}
-\Snippet{Arrays, matrix, sort and search}{Java}{Arrays are fixed-size and zero-initialized (objects: null). Arrays.sort also accepts String[]. binarySearch requires the same ordering used to sort; an absent key returns -(insertion point)-1. Iterate each row's length for ragged matrices.}
+\Snippet{Arrays, matrix, sort and search (RACHEL)}{Java}{Arrays are fixed-size and zero-initialized (objects: null). Arrays.sort also accepts String[]. binarySearch requires the same ordering used to sort; an absent key returns -(insertion point)-1. Iterate each row's length for ragged matrices.}
 \lstinputlisting[language={Java}]{../topics/collections/ArraysReference.java}
-\Snippet{Lists and primitive arrays}{Python}{list is dynamic; array('i') stores C signed integers and can also append/pop. rows and cols must be nonnegative. Use independent row lists: [[0]*cols]*rows aliases rows.}
+\Snippet{Lists and primitive arrays (RACHEL)}{Python}{list is dynamic; array('i') stores C signed integers and can also append/pop. rows and cols must be nonnegative. Use independent row lists: [[0]*cols]*rows aliases rows.}
 \lstinputlisting[language={Python}]{../topics/collections/arrays.py}
-\Snippet{ArrayList}{Java}{remove(int) removes by index; remove(Object) removes the first equal value. get/set/remove indices must exist; insertion allows index size().}
+\Snippet{ArrayList (RACHEL)}{Java}{remove(int) removes by index; remove(Object) removes the first equal value. get/set/remove indices must exist; insertion allows index size().}
 \lstinputlisting[language={Java}]{../topics/collections/Lists.java}
-\Snippet{Hash set}{Python}{Elements must be hashable. remove raises KeyError if absent; discard does not. pop removes an arbitrary element and raises KeyError on an empty set.}
+\Snippet{Hash set (RACHEL)}{Python}{Elements must be hashable. remove raises KeyError if absent; discard does not. pop removes an arbitrary element and raises KeyError on an empty set.}
 \lstinputlisting[language={Python}]{../topics/collections/sets.py}
-\Snippet{HashSet}{Java}{add/remove return whether the set changed. Duplicate insertion is ignored. Custom keys need consistent equals and hashCode.}
+\Snippet{HashSet (RACHEL)}{Java}{add/remove return whether the set changed. Duplicate insertion is ignored. Custom keys need consistent equals and hashCode.}
 \lstinputlisting[language={Java}]{../topics/collections/Sets.java}
-\Snippet{Dictionary}{Python}{Keys must be hashable. d[key] raises KeyError if missing; get(key, fallback) is safe. Assignment and update overwrite existing values. Do not change dictionary size during iteration.}
+\Snippet{Dictionary (RACHEL)}{Python}{Keys must be hashable. d[key] raises KeyError if missing; get(key, fallback) is safe. Assignment and update overwrite existing values. Do not change dictionary size during iteration.}
 \lstinputlisting[language={Python}]{../topics/collections/maps.py}
-\Snippet{HashMap}{Java}{put/remove return the previous value, or null if absent. get can return null; unboxing null throws. containsValue is O(n). getOrDefault uses the fallback only for absent keys, not keys mapped to null.}
+\Snippet{HashMap (RACHEL)}{Java}{put/remove return the previous value, or null if absent. get can return null; unboxing null throws. containsValue is O(n). getOrDefault uses the fallback only for absent keys, not keys mapped to null.}
 \lstinputlisting[language={Java}]{../topics/collections/Maps.java}
-\Snippet{Queue, stack and deque}{Java}{FIFO: offer/poll; LIFO: push/pop. ArrayDeque rejects null. peek/poll return null on empty; pop/removeFirst/removeLast throw. End insertions/removals are amortized O(1).}
+\Snippet{Queue, stack and deque (RACHEL)}{Java}{FIFO: offer/poll; LIFO: push/pop. ArrayDeque rejects null. peek/poll return null on empty; pop/removeFirst/removeLast throw. End insertions/removals are amortized O(1).}
 \lstinputlisting[language={Java}]{../topics/collections/Queues.java}
 
 
@@ -1505,13 +1519,13 @@ vi conv(vi a, vi b) {
 \ReferenceFact{CRT compatibility} $x\equiv a\pmod m$, $x\equiv b\pmod n$ are compatible iff $\gcd(m,n)\mid(b-a)$. The solution is unique modulo $\operatorname{lcm}(m,n)$. Solve $mt\equiv b-a\pmod n$, then $x=a+mt$. Use wide intermediates and check that the combined modulus fits; see KACTL CRT below.\par
 \ReferenceFact{Binomial coefficients} For prime $p$ and $0\le n<p$, precompute $f_i=i f_{i-1}\bmod p$, $h_n=f_n^{p-2}\bmod p$, $h_{i-1}=i h_i\bmod p$, with $f_0=1$. Then $\binom nk=f_nh_kh_{n-k}\bmod p$ (0 if $k\notin[0,n]$). $O(n+\log p)$ setup, $O(1)$ query. For $n\ge p$, factorial inversion fails; use Lucas/prime-power methods. Pascal recurrence works for any modulus without division.\par
 \ReferenceFact{Geometric sums} $S_n=1+r+\cdots+r^{n-1}=(r^n-1)/(r-1)\pmod m$ only if $r-1$ is invertible. Without division, double $(P_n,S_n)$: $P_{2n}=P_n^2$, $S_{2n}=S_n(1+P_n)$; append one term for odd $n$. Base $P_0=1\bmod m$, $S_0=0$.\par
-\Snippet{Runtime modulus, inverse \& congruence}{C++}{Requires the C++ template. inverse returns nullopt when no inverse exists (also for m=1); linear handles m=1 and a=0. All parameters are explicit; no hardcoded modulus. KACTL below adds discrete logs, modular roots, sieves and CRT.}
+\Snippet{Runtime modulus, inverse \& congruence (SHUBAN)}{C++}{Requires the C++ template. inverse returns nullopt when no inverse exists (also for m=1); linear handles m=1 and a=0. All parameters are explicit; no hardcoded modulus. KACTL below adds discrete logs, modular roots, sieves and CRT.}
 \lstinputlisting[language={C++}]{../topics/modular_arithmetic/modular.hpp}
 \subsection{Numeral systems}
 \TopicNote{For digits d[k]...d[0] in base b, value = sum(d[i]*b\textasciicircum{}i). Bases here are 2..36 with digits 0-9,a-z. Parsing invalid digits fails. Conversion takes O(number of digits) arithmetic steps; Python large-integer arithmetic has additional bit costs.}
-\Snippet{Parse and format any base}{Python}{Handles zero and negatives. bin adds 0b (negative values start -0b); format(x, 'b') omits the prefix. int(text, base) accepts upper/lower-case letters.}
+\Snippet{Parse and format any base (RACHEL)}{Python}{Handles zero and negatives. bin adds 0b (negative values start -0b); format(x, 'b') omits the prefix. int(text, base) accepts upper/lower-case letters.}
 \lstinputlisting[language={Python}]{../topics/numeral_systems/base_conversion.py}
-\Snippet{Integer base conversions}{Java}{parseInt requires a signed 32-bit result, otherwise NumberFormatException. toBinaryString prints negative ints as 32-bit two's complement; toString(value, 2) prints a minus sign. Use .equals for Java string comparisons.}
+\Snippet{Integer base conversions (RACHEL)}{Java}{parseInt requires a signed 32-bit result, otherwise NumberFormatException. toBinaryString prints negative ints as 32-bit two's complement; toString(value, 2) prints a minus sign. Use .equals for Java string comparisons.}
 \lstinputlisting[language={Java}]{../topics/numeral_systems/BaseConversion.java}
 
 
@@ -2038,15 +2052,15 @@ ll multinomial(vi& v) {
 
 \subsection{Graphs \& grids}
 \TopicNote{Adjacency lists use O(V+E) space. Add u-\textgreater{}v for directed edges; add both directions for an undirected edge. DFS/BFS visit reachable vertices in O(V+E) time, O(V) extra space. An outer loop covers disconnected graphs; its roots count components only for undirected graphs. Mark on insertion to avoid duplicate stack/queue entries.}
-\Snippet{DFS: reachability and forest}{Python}{Build adj = [[] for \_ in range(n)]. Explicit stack avoids recursion depth limits. Traversal order may differ from recursive DFS; this version is for reachability, not recursive entry/exit times.}
+\Snippet{DFS: reachability and forest (RACHEL)}{Python}{Build adj = [[] for \_ in range(n)]. Explicit stack avoids recursion depth limits. Traversal order may differ from recursive DFS; this version is for reachability, not recursive entry/exit times.}
 \lstinputlisting[language={Python}]{../topics/graphs/dfs.py}
-\Snippet{DFS: adjacency list and forest}{Java}{graph(n) allocates n independent lists. Iterative reachability traversal; use an explicit call-frame stack when recursive entry/exit order matters.}
+\Snippet{DFS: adjacency list and forest (RACHEL)}{Java}{graph(n) allocates n independent lists. Iterative reachability traversal; use an explicit call-frame stack when recursive entry/exit order matters.}
 \lstinputlisting[language={Java}]{../topics/graphs/DFS.java}
-\Snippet{BFS: distances and forest}{Python}{dist[v] is the shortest number of edges from start; -1 means unreachable. Requires an unweighted graph. bfs\_forest covers all vertices, without assigning unrelated roots a common distance.}
+\Snippet{BFS: distances and forest (RACHEL)}{Python}{dist[v] is the shortest number of edges from start; -1 means unreachable. Requires an unweighted graph. bfs\_forest covers all vertices, without assigning unrelated roots a common distance.}
 \lstinputlisting[language={Python}]{../topics/graphs/bfs.py}
-\Snippet{BFS: distances and forest}{Java}{The source examples used a queue; ArrayDeque gives amortized O(1) end operations. Mark each vertex before enqueueing it.}
+\Snippet{BFS: distances and forest (RACHEL)}{Java}{The source examples used a queue; ArrayDeque gives amortized O(1) end operations. Mark each vertex before enqueueing it.}
 \lstinputlisting[language={Java}]{../topics/graphs/BFS.java}
-\Snippet{Four-neighbor flood fill}{Java}{Rectangular grid. fill counts the unseen cells of the starting color reachable from (r,c), and updates seen. components returns all same-color region sizes. O(rows*cols) time and space overall; empty grids are supported.}
+\Snippet{Four-neighbor flood fill (RACHEL)}{Java}{Rectangular grid. fill counts the unseen cells of the starting color reachable from (r,c), and updates seen. components returns all same-color region sizes. O(rows*cols) time and space overall; empty grids are supported.}
 \lstinputlisting[language={Java}]{../topics/graphs/FloodFill.java}
 
 
@@ -4063,8 +4077,6 @@ double sphericalDistance(double f1, double t1,
 
 \subsection{C++ std::string}
 \ReferenceFact{Cost \& lifetime} Index/size: O(1); substr copies O(count); middle insert/erase/replace: O(n); find can be O(n*m) for pattern length m. Appending a character is amortized O(1). string\_view is a non-owning view: the source must outlive it and not invalidate its storage. Byte indexing is not Unicode character indexing.\par
-\Snippet{String calls, parsing \& input}{C++}{substr(pos,count) truncates count at the end but throws if pos \textgreater{} size(). npos is unsigned: compare with string::npos; never test p \textgreater{}= 0. cctype functions require unsigned char conversion (or EOF).}
-\lstinputlisting[language={C++}]{../topics/strings/cpp_strings.hpp}
 
 
 \KactlSnippet{KMP.h}{d4375c, 16 lines}
@@ -4370,21 +4382,25 @@ struct AhoCorasick {
 };
 \end{lstlisting}
 
+\Topic{Prefix sums}{prefix-sums}
+
+\subsection{Prefix sums (SHUBAN)}
+\ReferenceFact{Use} Build once in O(n) for 1D or O(rows*cols) for 2D; answer each half-open range in O(1). Use long long when accumulated values can exceed int. For inclusive [l,r], query sum(l,r+1).\par
+\Snippet{One- and two-dimensional prefix sums (SHUBAN)}{C++}{All indices are zero-based. The 2D constructor assumes rectangular rows; empty input is supported.}
+\lstinputlisting[language={C++}]{../topics/prefix_sums/prefix_sums.hpp}
 \Topic{Search, DP \& optimization}{search-dp}
 
 \subsection{C++ lambdas \& sorting}
 \ReferenceFact{Comparator contract} comp(a,b) means a precedes b; it must be a strict weak ordering. Use \textless{}, never \textless{}=; comp(x,x) must be false. For tie breakers use tie(a.first,a.second) \textless{} tie(b.first,b.second), not subtraction (overflow). sort is unstable; stable\_sort preserves equivalent elements.\par
 \ReferenceFact{Captures} [] none; [x] snapshot by value; [\&x] by reference; [=] implicit copies; [\&] implicit references; [x,\&y] mixed. mutable allows changing captured copies. Reference captures must outlive the lambda; a copied pointer still refers to the original object. Use -\textgreater{} ReturnType for explicit/recursive return types.\par
 \ReferenceFact{Useful algorithms} sort and nth\_element need random-access iterators. unique removes adjacent duplicates logically and returns a new end: erase the tail. next\_permutation returns false and resets to ascending at the final permutation. min\_element/max\_element return end() for empty ranges; accumulate(...,0LL) uses a 64-bit sum.\par
-\Snippet{Sorting, bounds \& lambda syntax}{C++}{All iterator ranges are half-open. stable\_sort is O(n log n) with enough extra memory, otherwise up to O(n log\textasciicircum{}2 n) comparisons. Lambda recursion shown below requires passing itself explicitly: fib(fib,n).}
-\lstinputlisting[language={C++}]{../topics/search/cpp_sort_lambdas.hpp}
 \subsection{Search \& dynamic programming}
-\Snippet{Binary search / first true}{Python}{binary\_search requires an ascending sorted sequence; it returns any matching index or -1. first\_true requires a false-then-true predicate on integer indices in [lo, hi). Example lower bound: first\_true(0, len(a), lambda i: a[i] \textgreater{}= x). O(log n) predicate calls, O(1) auxiliary space.}
+\Snippet{Binary search / first true (RACHEL)}{Python}{binary\_search requires an ascending sorted sequence; it returns any matching index or -1. first\_true requires a false-then-true predicate on integer indices in [lo, hi). Example lower bound: first\_true(0, len(a), lambda i: a[i] \textgreater{}= x). O(log n) predicate calls, O(1) auxiliary space.}
 \lstinputlisting[language={Python}]{../topics/search/binary_search.py}
-\Snippet{Kadane: maximum subarray sum}{Python}{O(n) time, O(1) auxiliary space. Handles all-negative input; a must be nonempty. ending is the best sum ending at the current position.}
+\Snippet{Kadane: maximum subarray sum (RACHEL)}{Python}{O(n) time, O(1) auxiliary space. Handles all-negative input; a must be nonempty. ending is the best sum ending at the current position.}
 \lstinputlisting[language={Python}]{../topics/dynamic_programming/kadane.py}
 \subsection{Bit operations}
-\Snippet{Parity, masks, XOR and shifts}{Java}{XOR identities: x\textasciicircum{}x=0, x\textasciicircum{}0=x. unique assumes all other values occur an even number of times. XOR swap uses distinct storage; a temporary variable is clearer. x\textless{}\textless{}k multiplies by 2\textasciicircum{}k only without overflow; signed x\textgreater{}\textgreater{}k rounds toward negative infinity, unlike Java integer division for negative values. \textgreater{}\textgreater{}\textgreater{} shifts in zero bits. int shifts mask k with 31; long shifts mask with 63. Use 1L\textless{}\textless{}bit for long masks. Bit operations are not automatically faster than equivalent arithmetic.}
+\Snippet{Parity, masks, XOR and shifts (RACHEL)}{Java}{XOR identities: x\textasciicircum{}x=0, x\textasciicircum{}0=x. unique assumes all other values occur an even number of times. XOR swap uses distinct storage; a temporary variable is clearer. x\textless{}\textless{}k multiplies by 2\textasciicircum{}k only without overflow; signed x\textgreater{}\textgreater{}k rounds toward negative infinity, unlike Java integer division for negative values. \textgreater{}\textgreater{}\textgreater{} shifts in zero bits. int shifts mask k with 31; long shifts mask with 63. Use 1L\textless{}\textless{}bit for long masks. Bit operations are not automatically faster than equivalent arithmetic.}
 \lstinputlisting[language={Java}]{../topics/bitwise/Bitwise.java}
 
 
@@ -4770,5 +4786,5 @@ ll example_filteredDotProduct(int n, short* a, short* b) {
 \ReferenceFact{Strings} Longest common substring; Palindrome subsequences; Knuth-Morris-Pratt; Tries; Rolling polynomial hashes; Suffix array; Suffix tree; Aho-Corasick; Manacher's algorithm; Letter position lists\par
 \ReferenceFact{Combinatorial search} Meet in the middle; Brute-force with pruning; Best-first (A*); Bidirectional search; Iterative deepening DFS / A*\par
 \ReferenceFact{Data structures} LCA (2\textasciicircum{}k-jumps in trees in general); Pull/push-technique on trees; Heavy-light decomposition; Centroid decomposition; Lazy propagation; Self-balancing trees; Convex hull trick (wcipeg.com/wiki/Convex\_hull\_trick); Monotone queues / monotone stacks / sliding queues; Sliding queue using 2 stacks; Persistent segment tree\par
-\end{multicols}\label{last-page}
+\label{last-page}\end{multicols}
 \end{document}

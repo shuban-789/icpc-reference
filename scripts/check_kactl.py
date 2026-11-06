@@ -19,7 +19,15 @@ def main():
     with tempfile.TemporaryDirectory(prefix="icpc-kactl-check-") as tmp:
         def check(path):
             unit = Path(tmp) / (path.parent.name + "-" + path.stem + ".cpp")
-            unit.write_text(f'#include "{ROOT / "cpp/template.cpp"}"\n#include "{path}"\n')
+            # Keep the user template unchanged. KACTL's standalone snippets
+            # use its optional convenience macros, so provide them only in the
+            # temporary checker translation unit.
+            prelude = ('#ifndef rep\n#define rep(i,a,b) for (int i=(a); i<(b); ++i)\n'
+                       '#endif\n#ifndef all\n#define all(x) begin(x), end(x)\n#endif\n'
+                       '#ifndef sz\n#define sz(x) (int)(x).size()\n#endif\n'
+                       'using vi = vector<int>; using pii = pair<int,int>;\n')
+            unit.write_text(f'#include "{ROOT / "cpp/template.cpp"}"\n'
+                            + prelude + f'#include "{path}"\n')
             result = subprocess.run(["g++", "-std=c++17", "-fsyntax-only", str(unit)],
                                     text=True, capture_output=True)
             return path, result

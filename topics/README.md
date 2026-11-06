@@ -6,6 +6,7 @@ The topic-only printable version is [doc/topics.pdf](../doc/topics.pdf).
 
 | Subject | Editable sources |
 | --- | --- |
+| C++ language quick reference and Makefile | `programming_languages/` (printed in Programming languages) |
 | Arrays, collections and C++ container calls | `collections/` |
 | Graph traversal and grids | `graphs/` |
 | Binary search, C++ sorting and lambdas | `search/` |

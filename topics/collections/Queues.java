@@ -1,24 +1,47 @@
-import java.util.*;
+import java.util.Queue;
+import java.util.ArrayDeque;
 
-class Queues {
-    static <T> void operations(T x, T y) {
-        Queue<T> q = new ArrayDeque<>();
-        q.offer(x); q.offer(y); // enqueue at tail
-        T head = q.peek();      // null when empty
-        T served = q.poll();    // null when empty
-        int size = q.size();
-        boolean empty = q.isEmpty();
+public class QueueExample {
+    public static void main(String[] args) {
+        // 1. Instantiate using ArrayDeque
+        Queue<String> line = new ArrayDeque<>();
 
-        Deque<T> stack = new ArrayDeque<>();
-        stack.push(x); stack.push(y);
-        T top = stack.peek();   // y; null when empty
-        T popped = stack.pop();// y; throws if empty
+        // 2. Enqueue (Add elements to the tail)
+        line.offer("Alice");
+        line.offer("Bob");
+        line.offer("Charlie");
+        System.out.println("Queue: " + line); // Output: [Alice, Bob, Charlie]
 
-        Deque<T> d = new ArrayDeque<>();
-        d.addFirst(x); d.addLast(y);
-        T front = d.removeFirst(); // x
-        T back = d.removeLast();   // y
-        // removeFirst/Last throw if empty.
-        // pollFirst/Last return null if empty.
-    }
+        // 3. Inspect (Look at the head without removing)
+      String nextUp = line.peek();
+      System.out.println("Next in line: " + nextUp); // Output: Alice
+
+      // 4. Dequeue (Remove and return the head)
+      String served = line.poll();
+      System.out.println("Served: " + served); // Output: Alice
+      System.out.println("Remaining Queue: " + line); // Output: [Bob, Charlie]
+  }
+}
+
+import java.util.Deque;
+import java.util.ArrayDeque;
+
+public class StackExample {
+  public static void main(String[] args) {
+      // Instantiate using Deque and ArrayDeque
+      Deque<String> bookStack = new ArrayDeque<>();
+      // 1. PUSH (Add element to the top)
+      bookStack.push("Harry Potter");
+      bookStack.push("The Hobbit");
+      bookStack.push("1984");
+    System.out.println("Stack: " + bookStack); // Output: [1984, The Hobbit, Harry Potter]
+
+      // 2. PEEK (Look at the top element without removing)
+      System.out.println("Top book: " + bookStack.peek()); // Output: 1984
+
+      // 3. POP (Remove and return the top element)
+      String removedBook = bookStack.pop();
+      System.out.println("Popped: " + removedBook); // Output: 1984
+    System.out.println("Remaining Stack: " + bookStack); // Output: [The Hobbit, Harry Potter]
+  }
 }

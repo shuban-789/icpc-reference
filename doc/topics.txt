@@ -284,249 +284,329 @@ Ordered vs hashed: set/map: lookup/insert/key erase O(log n); multiset allows du
 
 Iterator lifetime: vector reallocation invalidates all iterators/references; erase invalidates at/after the position. Tree insert preserves iterators, erase invalidates only erased elements. Hash rehash invalidates iterators. Avoid modifying a container while range-iterating unless validity is guaranteed.
 
-C++ container API [C++]
-File: topics/collections/cpp_containers.hpp
-Independent call examples; replace values/types as needed. bitset<N> uses a compile-time N; bitwise operations process machine words. C++17 membership: find(x) != end() or count(x).
-// C++17; use with the contest template. Ranges are [l,r).
-void container_calls() {
-  vector<int> v(3, 0); // size 3, initialized to zero
-  v.reserve(10); // capacity only; size unchanged
-  v.resize(5, 2); v.push_back(7); v.emplace_back(8);
-  v.pop_back(); // requires nonempty; returns void
-  v.insert(v.begin()+1, 9); v.erase(v.begin()+1);
-  v.erase(remove(v.begin(), v.end(), 2), v.end());
-  int x = v[0]; // unchecked; v.at(i) checks bounds
-  x = v.front(); x = v.back();
-  for (int& y : v) ++y; // reference to mutate
-  array<int, 4> a{}; a.fill(3); // fixed size
-  deque<int> d; d.push_front(x); d.push_back(x);
-  d.pop_front(); d.pop_back(); // ends: O(1)
-  stack<int> st; st.push(x); x = st.top(); st.pop();
-  queue<int> q; q.push(x); x = q.front(); q.pop();
-  priority_queue<int> hi; // largest first
-  priority_queue<int, vector<int>, greater<int>> lo;
-  hi.push(x); x = hi.top(); hi.pop();
-  lo.push(x); x = lo.top(); lo.pop();
-  set<int> s{1, 3}; // sorted unique keys
-  auto [it, inserted] = s.insert(2);
-  it = s.find(3); // end() if absent
-  if (it != s.end()) s.erase(it);
-  it = s.lower_bound(2); // first >= 2
-  it = s.upper_bound(2); // first > 2
-  if (it != s.begin()) x = *prev(it); // predecessor
-  multiset<int> ms{2, 2, 3};
-  ms.erase(ms.find(2)); // one copy; must exist
-  ms.erase(2); // ALL copies of key 2
-  map<string, int> mp; // sorted unique keys
-  ++mp["key"]; // inserts zero if key absent
-  mp.emplace("other", 4); // won't replace existing
-  mp.insert_or_assign("other", 5); // set/replace
-  auto jt = mp.find("key"); // lookup, no insertion
-  if (jt != mp.end()) x = jt->second;
-  for (auto& [key, value] : mp) ++value;
-  mp.erase("key"); // returns number erased
-  unordered_map<int, int> um;
-  um.max_load_factor(0.7f); um.reserve(100);
-  um[x] = 1; // hash table; no sorted order/bounds
-  unordered_set<int> us; us.insert(x);
-  bitset<64> bits(5); // fixed number of bits
-  bits.set(1); bits.reset(2); bits.flip(0);
-  bool b = bits.test(1); auto n = bits.count();
-  b = bits.any(); b = bits.none(); b = (bits.all)();
-  // Parentheses avoid the template's all(x) macro.
-  bits <<= 2; bits |= bitset<64>(3);
-  auto mask = bits.to_ullong(); // throws if too large
-  v.clear(); // size=0; capacity may remain
-  (void)a; (void)inserted; (void)b; (void)n; (void)mask;
-}
-
-
 Arrays & collections
 Hash tables: expected O(1) lookup/insert/remove. Java hash iteration costs O(size+capacity). Python dict preserves insertion order; hash sets and Java HashMap have no guaranteed order. Array/list indexing is O(1); append is amortized O(1); middle insertion/removal and value search are O(n). Java generics use wrappers (Integer, not int).
 
-Arrays, matrix, sort and search [Java]
+Arrays, matrix, sort and search (RACHEL) [Java]
 File: topics/collections/ArraysReference.java
 Arrays are fixed-size and zero-initialized (objects: null). Arrays.sort also accepts String[]. binarySearch requires the same ordering used to sort; an absent key returns -(insertion point)-1. Iterate each row's length for ragged matrices.
-import java.util.*;
+import java.util.Arrays;
 
-class ArraysReference {
-    static int sortAndSearch(int[] a, int target) {
-        Arrays.sort(a); // mutates a; ascending order
-        int i = Arrays.binarySearch(a, target);
-        // i >= 0: a match; duplicates: any match.
-        // i < 0: insertion point = -i - 1.
-        return i;
-    }
-    static void arrays(int n, int rows, int cols) {
-        int[] a = new int[n]; // initially zero
-        String[] names = {"Alice", "Bob"};
-        int size = names.length; // field, no ()
-        String first = names[0];
-        names[0] = "Charlie";
-        System.out.println(Arrays.toString(names));
-        int[][] matrix = new int[rows][cols];
-        for (int r = 0; r < matrix.length; r++) {
-            for (int c = 0; c < matrix[r].length; c++)
-                System.out.print(matrix[r][c] + " ");
-            System.out.println();
+
+public class ArrayExample {
+    public static void main(String[] args) {
+      String[] employees = {"Charlie", "Bob", "Alice", "Dan"};
+
+        // 1. Sort it first!
+        Arrays.sort(employees); // Now: ["Alice", "Bob", "Charlie", "Dan"]
+
+
+        // 2. Search it!
+        int targetIndex = Arrays.binarySearch(employees, "Bob");
+
+
+        if (targetIndex >= 0) {
+            System.out.println("Found Bob at position " + targetIndex);
+        } else {
+            System.out.println("Employee not found.");
         }
     }
 }
 
 
-Lists and primitive arrays [Python]
+int[][] emptyMatrix = new int[2][3];
+
+// Rows are accessed via .length, columns via matrix[i].length
+for (int i = 0; i < matrix.length; i++) {
+    for (int j = 0; j < matrix[i].length; j++) {
+        System.out.print(matrix[i][j] + " ");
+    }
+    System.out.println();
+}
+
+
+Lists and primitive arrays (RACHEL) [Python]
 File: topics/collections/arrays.py
 list is dynamic; array('i') stores C signed integers and can also append/pop. rows and cols must be nonnegative. Use independent row lists: [[0]*cols]*rows aliases rows.
-from array import array
+fruits = ["Apple", "Banana", "Mango"]
 
 
-def array_operations(values, rows, cols):
-    a = list(values)         # dynamic, mixed types
-    a.append(0)
-    first = a[0]
-    a[0] = 1
-    removed = a.pop(0)       # shift later elements
-    size = len(a)
-    ints = array('i', [90, 85, 77])  # C signed ints
-    grid = [[0] * cols for _ in range(rows)]
-    return a, first, removed, size, ints, grid
+# Option B: True Strict Primitive Array (Built-in module)
 
 
-ArrayList [Java]
+import array
+
+
+# 'i' means signed integers only. Throws TypeError if you try to add a string.
+
+
+scores = array.array('i', [90, 85, 77])
+
+
+# 1. Get Length
+
+
+size = len(fruits) # 3
+
+
+# 2. Read / Write Elements
+
+
+first = fruits[0]    # "Apple"
+fruits[2] = "Blueberry" # Replaces "Mango"
+
+
+# 3. Dynamic Operations (Only works on vanilla lists, not primitive Java arrays)
+
+
+fruits.append("Orange") # Adds to the end
+
+
+fruits.pop(1)       # Removes index 1 ("Banana")
+
+
+ArrayList (RACHEL) [Java]
 File: topics/collections/Lists.java
 remove(int) removes by index; remove(Object) removes the first equal value. get/set/remove indices must exist; insertion allows index size().
-import java.util.*;
+import java.util.ArrayList;
 
-class Lists {
-    static <T> void operations(T x, T y) {
-        ArrayList<T> a = new ArrayList<>();
-        a.add(x);          // append
-        a.add(0, y);       // insert, shifting suffix
-        T first = a.get(0);
-        a.set(0, x);       // replace
-        int size = a.size();
-        boolean found = a.contains(x);
-        a.remove(0);      // remove by index
-        a.remove(x);      // remove first equal value
-        // For ArrayList<Integer>, remove value 7:
-        // a.remove(Integer.valueOf(7));
-        for (T value : a) System.out.println(value);
+public class Main {
+
+    public static void main(String[] args) {
+
+      // Create an ArrayList
+      ArrayList<String> fruits = new ArrayList<>();
+
+      // 1. Add elements
+      fruits.add("Apple");
+      fruits.add("Banana");
+      fruits.add(1, "Mango"); // Inserts at index 1
+
+      // 2. Access and modify
+      String firstFruit = fruits.get(0); // "Apple"
+      fruits.set(2, "Blackberry");    // Replaces "Banana" with "Blackberry"
+
+        // 3. Information
+        int totalItems = fruits.size(); // 3
+        boolean hasApple = fruits.contains("Apple"); // true
+
+        // 4. Remove elements
+        fruits.remove(1);               // Removes "Mango"
+        fruits.remove("Apple");           // Removes "Apple"
+
+        // 5. Functional Loop (Java 8+)
+        for (String fruit : fruits) {
+            System.out.println("Fruit name: " + fruit);
+        }
     }
 }
 
 
-Hash set [Python]
+Hash set (RACHEL) [Python]
 File: topics/collections/sets.py
 Elements must be hashable. remove raises KeyError if absent; discard does not. pop removes an arbitrary element and raises KeyError on an empty set.
-def set_operations(values, x, more):
-    s = set(values)          # {} is an empty dict
-    s.add(x)                # duplicates have no effect
-    s.update(more)          # add an iterable
-    present = x in s
-    s.remove(x)             # KeyError if absent
-    s.discard(x)            # safe if absent
-    item = s.pop() if s else None  # arbitrary item
-    size = len(s)
-    empty = not s
-    for value in s:
-        print(value)
-    s.clear()
-    return present, item, size, empty
+my_set = {1, 2, 3}
 
 
-HashSet [Java]
+my_set.add(4)
+
+
+my_set.update([5, 6])
+
+
+my_set.remove(2)
+
+
+my_set.discard(99)
+
+
+item = my_set.pop()
+
+
+my_set.clear()
+
+
+HashSet (RACHEL) [Java]
 File: topics/collections/Sets.java
 add/remove return whether the set changed. Duplicate insertion is ignored. Custom keys need consistent equals and hashCode.
-import java.util.*;
+import java.util.HashSet;
 
-class Sets {
-    static <T> void operations(Collection<T> xs, T x) {
-        HashSet<T> s = new HashSet<>(xs);
-        boolean added = s.add(x); // false if duplicate
-        boolean found = s.contains(x);
-        int size = s.size();
-        boolean removed = s.remove(x);
-        boolean empty = s.isEmpty();
-        for (T value : s) System.out.println(value);
-        s.clear();
+
+public class HashSetExample {
+  public static void main(String[] args) {
+    // Create a HashSet
+    HashSet<String> programmingLanguages = new HashSet<>();
+
+    // 1. add()
+    programmingLanguages.add("Java");
+    programmingLanguages.add("Python");
+    programmingLanguages.add("C++");
+    boolean isAdded = programmingLanguages.add("Java"); // Will return false (duplicate)
+
+    // 2. contains()
+    System.out.println("Contains Python? " + programmingLanguages.contains("Python")); // true
+
+    // 3. size()
+    System.out.println("Set size: " + programmingLanguages.size()); // 3
+
+    // 4. remove()
+    programmingLanguages.remove("C++");
+
+    // 5. isEmpty()
+    System.out.println("Is set empty? " + programmingLanguages.isEmpty()); // false
+
+    // 6. Iterating using an enhanced for-loop
+    System.out.println("Remaining items:");
+    for (String lang : programmingLanguages) {
+        System.out.println(lang);
+    }
+
+    // 7. clear()
+    programmingLanguages.clear();
+    System.out.println("Size after clear: " + programmingLanguages.size()); // 0
     }
 }
 
 
-Dictionary [Python]
+Dictionary (RACHEL) [Python]
 File: topics/collections/maps.py
 Keys must be hashable. d[key] raises KeyError if missing; get(key, fallback) is safe. Assignment and update overwrite existing values. Do not change dictionary size during iteration.
-def map_operations(pairs, key, value, batch):
-    d = dict(pairs)
-    previous = d.get(key, 0)  # default if absent
-    d[key] = value           # insert / overwrite
-    d.update(batch)          # merge / overwrite
-    present = key in d
-    for k, v in d.items():
-        print(k, v)
-    for k in d.keys():
-        print(k)
-    for v in d.values():
-        print(v)
-    size = len(d)
-    empty = not d
-    removed = d.pop(key, None)
-    d.clear()
-    return previous, present, size, empty, removed
+# 1. Initialize the dictionary with numeric keys and values
+# Key: Student ID (int) -> Value: Exam Score (int)
+scores = {101: 85, 102: 92}
+print("Initial scores:", scores)
 
 
-HashMap [Java]
+
+# 2. Use .get() to read a score safely
+# Student 103 hasn't taken the test yet, so we return a default score of 0.
+student_103_score = scores.get(103, 0)
+print(f"\n[get] Student 103 score: {student_103_score}")
+
+
+
+# 3. Use [] assignment to add or change a score
+scores[103] = 78 # Adds a new student ID and score
+scores[101] = 88 # Updates Student 101's score after a regrade
+print("\n[[] assignment] Added student 103 and updated 101:")
+print(scores)
+
+
+
+# 4. Use .update() to process multiple scores at once
+# We process a batch of new test submissions.
+batch_scores = {104: 95, 105: 81, 102: 96}
+scores.update(batch_scores)
+print("\n[.update()] Processed a batch of new scores:")
+print(scores)
+
+scores = {101: 88, 102: 96, 103: 78}
+
+
+for student_id, score in scores.items():
+    print(f"Student ID {student_id} earned a score of {score}")
+
+
+for student_id in scores.keys():
+    print(f"Present Student ID: {student_id}")
+
+
+for score in scores.values():
+    print(f"Value: {score}")
+
+
+HashMap (RACHEL) [Java]
 File: topics/collections/Maps.java
 put/remove return the previous value, or null if absent. get can return null; unboxing null throws. containsValue is O(n). getOrDefault uses the fallback only for absent keys, not keys mapped to null.
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
-class Maps {
-    static <K, V> void operations(K key, V value,
-                                 V fallback) {
-        HashMap<K, V> map = new HashMap<>();
-        V old = map.put(key, value); // insert/overwrite
-        V got = map.get(key);        // null if absent
-        V safe = map.getOrDefault(key, fallback);
-        boolean hasKey = map.containsKey(key);
-        boolean hasValue = map.containsValue(value);
-        for (Map.Entry<K, V> e : map.entrySet())
-            System.out.println(e.getKey()+" "+e.getValue());
-        for (K k : map.keySet()) System.out.println(k);
-        for (V v : map.values()) System.out.println(v);
-        int size = map.size();
-        V removed = map.remove(key);
-        boolean empty = map.isEmpty();
-        map.clear();
+
+public class HashMapExample {
+
+  public static void main(String[] args) {
+
+    // Initialization (Requires wrapper classes like Integer instead of int)
+    HashMap<String, Integer> inventory = new HashMap<>();
+
+    // 1. Adding elements using put()
+    inventory.put("Apple", 50);
+    inventory.put("Banana", 20);
+    inventory.put("Orange", 35);
+
+    // 2. Retrieving elements using get() and getOrDefault()
+    int appleCount = inventory.get("Apple"); // Returns 50
+    int grapeCount = inventory.getOrDefault("Grape", 0); // Returns 0 (not found)
+
+// 3. Checking presence
+boolean hasBanana = inventory.containsKey("Banana"); // true
+
+// 4. Updating a value
+inventory.put("Apple", 60); // Overwrites 50 with 60
+
+// 5. Removing an item
+inventory.remove("Orange");
+
+// 6. Iterating using entrySet()
+for (Map.Entry<String, Integer> entry : inventory.entrySet()) {
+    System.out.println(entry.getKey() + " Quantity: " + entry.getValue());
+}
+
+// Check size
+System.out.println("Total unique items: " + inventory.size());
     }
 }
 
 
-Queue, stack and deque [Java]
+Queue, stack and deque (RACHEL) [Java]
 File: topics/collections/Queues.java
 FIFO: offer/poll; LIFO: push/pop. ArrayDeque rejects null. peek/poll return null on empty; pop/removeFirst/removeLast throw. End insertions/removals are amortized O(1).
-import java.util.*;
+import java.util.Queue;
+import java.util.ArrayDeque;
 
-class Queues {
-    static <T> void operations(T x, T y) {
-        Queue<T> q = new ArrayDeque<>();
-        q.offer(x); q.offer(y); // enqueue at tail
-        T head = q.peek();      // null when empty
-        T served = q.poll();    // null when empty
-        int size = q.size();
-        boolean empty = q.isEmpty();
+public class QueueExample {
+    public static void main(String[] args) {
+        // 1. Instantiate using ArrayDeque
+        Queue<String> line = new ArrayDeque<>();
 
-        Deque<T> stack = new ArrayDeque<>();
-        stack.push(x); stack.push(y);
-        T top = stack.peek();   // y; null when empty
-        T popped = stack.pop();// y; throws if empty
+        // 2. Enqueue (Add elements to the tail)
+        line.offer("Alice");
+        line.offer("Bob");
+        line.offer("Charlie");
+        System.out.println("Queue: " + line); // Output: [Alice, Bob, Charlie]
 
-        Deque<T> d = new ArrayDeque<>();
-        d.addFirst(x); d.addLast(y);
-        T front = d.removeFirst(); // x
-        T back = d.removeLast();   // y
-        // removeFirst/Last throw if empty.
-        // pollFirst/Last return null if empty.
-    }
+        // 3. Inspect (Look at the head without removing)
+      String nextUp = line.peek();
+      System.out.println("Next in line: " + nextUp); // Output: Alice
+
+      // 4. Dequeue (Remove and return the head)
+      String served = line.poll();
+      System.out.println("Served: " + served); // Output: Alice
+      System.out.println("Remaining Queue: " + line); // Output: [Bob, Charlie]
+  }
+}
+
+import java.util.Deque;
+import java.util.ArrayDeque;
+
+public class StackExample {
+  public static void main(String[] args) {
+      // Instantiate using Deque and ArrayDeque
+      Deque<String> bookStack = new ArrayDeque<>();
+      // 1. PUSH (Add element to the top)
+      bookStack.push("Harry Potter");
+      bookStack.push("The Hobbit");
+      bookStack.push("1984");
+    System.out.println("Stack: " + bookStack); // Output: [1984, The Hobbit, Harry Potter]
+
+      // 2. PEEK (Look at the top element without removing)
+      System.out.println("Top book: " + bookStack.peek()); // Output: 1984
+
+      // 3. POP (Remove and return the top element)
+      String removedBook = bookStack.pop();
+      System.out.println("Popped: " + removedBook); // Output: 1984
+    System.out.println("Remaining Stack: " + bookStack); // Output: [The Hobbit, Harry Potter]
+  }
 }
 
 
@@ -2039,7 +2119,7 @@ Binomial coefficients: For prime p and 0<=n<p, precompute fact[i]=i*fact[i-1] mo
 
 Geometric sums: (1+r+...+r^(n-1))=(r^n-1)/(r-1) mod m only when r-1 is invertible. Without division, compute pair (r^n,S_n) by doubling: P_2n=P_n^2, S_2n=S_n*(1+P_n); append one term for odd n. Base P_0=1 mod m, S_0=0.
 
-Runtime modulus, inverse & congruence [C++]
+Runtime modulus, inverse & congruence (SHUBAN) [C++]
 File: topics/modular_arithmetic/modular.hpp
 Requires the C++ template. inverse returns nullopt when no inverse exists (also for m=1); linear handles m=1 and a=0. All parameters are explicit; no hardcoded modulus. KACTL below adds discrete logs, modular roots, sieves and CRT.
 // GNU C++17; signed 64-bit inputs, 1 <= m <= LLONG_MAX.
@@ -2093,51 +2173,113 @@ optional<pair<i64,i64>> linear(i64 a, i64 b, i64 m) {
 Numeral systems
 For digits d[k]...d[0] in base b, value = sum(d[i]*b^i). Bases here are 2..36 with digits 0-9,a-z. Parsing invalid digits fails. Conversion takes O(number of digits) arithmetic steps; Python large-integer arithmetic has additional bit costs.
 
-Parse and format any base [Python]
+Parse and format any base (RACHEL) [Python]
 File: topics/numeral_systems/base_conversion.py
 Handles zero and negatives. bin adds 0b (negative values start -0b); format(x, 'b') omits the prefix. int(text, base) accepts upper/lower-case letters.
-def to_base(num, base):
-    if not 2 <= base <= 36:
-        raise ValueError("base must be in [2, 36]")
-    if num == 0:
-        return "0"
-    sign = "-" if num < 0 else ""
-    num = abs(num)
-    digits = "0123456789abcdefghijklmnopqrstuvwxyz"
-    result = []
-    while num:
-        num, rem = divmod(num, base)
-        result.append(digits[rem])
-    return sign + "".join(reversed(result))
+# ==========================================
 
 
-def from_base(text, base):
-    return int(text, base)  # bases 2..36
+# 1. BASE 10 ---> BASE 2 (Decimal to Binary)
 
 
-# bin(13) == '0b1101'; format(13, 'b') == '1101'
-# int('1101', 2) == 13; int('42', 5) == 22
-# int('zz', 36) == 1295; to_base(1295, 36) == 'zz'
+# ==========================================
 
 
-Integer base conversions [Java]
+decimal_num = 13
+
+
+# Built-in method: bin()
+
+
+# Note: This returns a string starting with '0b' (e.g., '0b1101')
+
+
+binary_str_with_prefix = bin(decimal_num)
+
+
+# Clean string without the '0b' prefix
+
+
+binary_str = format(decimal_num, 'b')
+
+
+print(f"Decimal 13 to Binary: {binary_str}") # Output: "1101"
+
+
+# ==========================================
+
+
+# 2. BASE 2 ---> BASE 10 (Binary to Decimal)
+
+
+# ==========================================
+
+
+binary_input = "1101"
+
+
+# Built-in method: int(string, base)
+
+
+decimal_output = int(binary_input, 2)
+
+
+print(f"Binary 1101 to Decimal: {decimal_output}") # Output: 13
+
+
+Integer base conversions (RACHEL) [Java]
 File: topics/numeral_systems/BaseConversion.java
 parseInt requires a signed 32-bit result, otherwise NumberFormatException. toBinaryString prints negative ints as 32-bit two's complement; toString(value, 2) prints a minus sign. Use .equals for Java string comparisons.
-class BaseConversion {
-    static String toBase(int value, int base) {
-        if (base < 2 || base > 36)
-            throw new IllegalArgumentException("base");
-        return Integer.toString(value, base);
+public class BaseConversion {
+
+
+  public static void main(String[] args) {
+
+
+    // ==========================================
+
+
+    // 1. BASE 10 ---> BASE 2 (Decimal to Binary)
+
+
+    // ==========================================
+
+
+    int decimalNum = 13;
+
+        // Built-in method: Integer.toBinaryString(int)
+
+        String binaryStr = Integer.toBinaryString(decimalNum);
+
+        System.out.println("Decimal 13 to Binary: " + binaryStr); // Output: "1101"
+
+
+
+        // ==========================================
+
+
+        // 2. BASE 2 ---> BASE 10 (Binary to Decimal)
+
+
+        // ==========================================
+
+
+        String binaryInput = "1101";
+
+
+
+        // Built-in method: Integer.parseInt(string, base)
+
+
+        int decimalOutput = Integer.parseInt(binaryInput, 2);
+
+
+        System.out.println("Binary 1101 to Decimal: " + decimalOutput); // Output: 13
+
+
     }
-    static int fromBase(String text, int base) {
-        return Integer.parseInt(text, base);
-    }
-    // Integer.toBinaryString(13) == "1101"
-    // Integer.parseInt("1101", 2) == 13
-    // Integer.parseInt("15", 7) == 12
-    // Integer.parseInt("abc", 36) == 13368
-    // Integer.toString(13368, 36).equals("abc")
-    // Use Long.parseLong / Long.toString for long.
+
+
 }
 
 
@@ -2895,186 +3037,223 @@ Graphs & grids
 Graphs & grids
 Adjacency lists use O(V+E) space. Add u->v for directed edges; add both directions for an undirected edge. DFS/BFS visit reachable vertices in O(V+E) time, O(V) extra space. An outer loop covers disconnected graphs; its roots count components only for undirected graphs. Mark on insertion to avoid duplicate stack/queue entries.
 
-DFS: reachability and forest [Python]
+DFS: reachability and forest (RACHEL) [Python]
 File: topics/graphs/dfs.py
 Build adj = [[] for _ in range(n)]. Explicit stack avoids recursion depth limits. Traversal order may differ from recursive DFS; this version is for reachability, not recursive entry/exit times.
-def dfs(adj, start, seen):
-    stack = [start]
-    seen[start] = True
-    while stack:
-        u = stack.pop()
-        # Process u here.
-        for v in adj[u]:
-            if not seen[v]:
-                seen[v] = True
-                stack.append(v)
+import sys
 
 
-def dfs_forest(adj):
-    seen = [False] * len(adj)
-    for u in range(len(adj)):
-        if not seen[u]:
-            dfs(adj, u, seen)
-    return seen
+sys.setrecursionlimit(10**5) # Python has a default recursion limit of 1000
 
 
-DFS: adjacency list and forest [Java]
+n=6
+visited = [False] * n
+
+
+"""
+Define adjacency list and read in problem-specific input here.
+
+
+In this example, we've provided "dummy input" that's
+reflected in the GIF above to help illustrate the
+order of the recursive calls.
+"""
+adj = [[] for _ in range(n)]
+adj[0] = [1, 2, 4]
+adj[1] = [3, 4]
+adj[2] = [5]
+
+
+
+def dfs(current_node):
+       visited[current_node] = True
+       for neighbor in adj[current_node]:
+               if not visited[neighbor]:
+                       dfs(neighbor)
+
+
+
+for i in range(n):
+       if not visited[i]:
+               dfs(i)
+
+
+DFS: adjacency list and forest (RACHEL) [Java]
 File: topics/graphs/DFS.java
 graph(n) allocates n independent lists. Iterative reachability traversal; use an explicit call-frame stack when recursive entry/exit order matters.
+import java.io.*;
 import java.util.*;
 
-class DFS {
-    static List<List<Integer>> graph(int n) {
-        List<List<Integer>> adj = new ArrayList<>();
-        for (int i = 0; i < n; i++)
-            adj.add(new ArrayList<>());
-        return adj; // adj.get(u).add(v)
-    }
-    static void dfs(List<List<Integer>> adj, int s,
-                    boolean[] seen) {
-        Deque<Integer> stack = new ArrayDeque<>();
-        seen[s] = true;
-        stack.push(s);
-        while (!stack.isEmpty()) {
-            int u = stack.pop(); // process u here
-            for (int v : adj.get(u)) {
-                if (seen[v]) continue;
-                seen[v] = true;
-                stack.push(v);
-            }
-        }
-    }
-    static boolean[] forest(List<List<Integer>> adj) {
-        boolean[] seen = new boolean[adj.size()];
-        for (int u = 0; u < adj.size(); u++)
-            if (!seen[u]) dfs(adj, u, seen);
-        return seen;
-    }
+
+public class DFSDemo {
+      static List<Integer>[] adj;
+      static boolean[] visited;
+      static int n = 6;
+
+
+      public static void main(String[] args) throws IOException {
+             visited = new boolean[n];
+
+             /*
+              * Define adjacency list and read in problem-specific input
+              *
+              * In this example, we've provided "dummy input" that's
+              * reflected in the GIF above to help illustrate the
+              * order of the recursive calls.
+              */
+             adj = new ArrayList[n];
+             for (int i = 0; i < n; i++) { adj[i] = new ArrayList<>(); }
+             adj[0] = new ArrayList<>(Arrays.asList(1, 2, 4));
+             adj[1] = new ArrayList<>(Arrays.asList(3, 4));
+             adj[2] = new ArrayList<>(Arrays.asList(5));
+
+             for (int i = 0; i < n; i++) {
+                     // iterate over all connected components in the graph
+                     if (!visited[i]) { dfs(i); }
+             }
+      }
+
+      static void dfs(int currentNode) {
+             if (visited[currentNode]) { return; }
+   visited[currentNode] = true;
+   for (int neighbor : adj[currentNode]) { dfs(neighbor); }
+   }
 }
 
 
-BFS: distances and forest [Python]
+BFS: distances and forest (RACHEL) [Python]
 File: topics/graphs/bfs.py
 dist[v] is the shortest number of edges from start; -1 means unreachable. Requires an unweighted graph. bfs_forest covers all vertices, without assigning unrelated roots a common distance.
 from collections import deque
 
 
-def bfs(adj, start):
-    dist = [-1] * len(adj)
-    dist[start] = 0
-    q = deque([start])
-    while q:
-        u = q.popleft()
-        for v in adj[u]:
-            if dist[v] == -1:
-                dist[v] = dist[u] + 1
-                q.append(v)
-    return dist
+"""
+Define adjacency list and read in problem-specific input
 
 
-def bfs_forest(adj):
-    seen = [False] * len(adj)
-    for start in range(len(adj)):
-        if seen[start]:
-            continue
-        seen[start] = True
-        q = deque([start])
-        while q:
-            u = q.popleft()
-            for v in adj[u]:
-                if not seen[v]:
-                    seen[v] = True
-                    q.append(v)
-    return seen
+In this example, we've provided "dummy input" that's
+reflected in the GIF above to help illustrate the
+order of the recursive calls.
+"""
 
 
-BFS: distances and forest [Java]
+n=6
+adj = [[] for _ in range(n)]
+visited = [False] * n
+
+
+adj[0] = [1, 2, 4]
+adj[1] = [3, 4]
+adj[2] = [5]
+
+
+for i in range(n):
+         # iterate over all connected components in the graph
+         if not visited[i]:
+                 q = deque([i])
+
+
+                 while q:
+                         node = q.popleft()
+                         visited[node] = True
+
+
+                         for neighbor in adj[node]:
+                                  if not visited[neighbor]:
+                                          q.append(neighbor)
+
+
+BFS: distances and forest (RACHEL) [Java]
 File: topics/graphs/BFS.java
 The source examples used a queue; ArrayDeque gives amortized O(1) end operations. Mark each vertex before enqueueing it.
 import java.util.*;
 
-class BFS {
-    static int[] distances(List<List<Integer>> adj,
-                           int start) {
-        int[] dist = new int[adj.size()];
-        Arrays.fill(dist, -1);
-        Queue<Integer> q = new ArrayDeque<>();
-        dist[start] = 0;
-        q.offer(start);
-        while (!q.isEmpty()) {
-            int u = q.poll();
-            for (int v : adj.get(u)) {
-                if (dist[v] != -1) continue;
-                dist[v] = dist[u] + 1;
-                q.offer(v);
-            }
-        }
-        return dist;
-    }
-    static boolean[] forest(List<List<Integer>> adj) {
-        boolean[] seen = new boolean[adj.size()];
-        Queue<Integer> q = new ArrayDeque<>();
-        for (int s = 0; s < adj.size(); s++) {
-            if (seen[s]) continue;
-            seen[s] = true;
-            q.offer(s);
-            while (!q.isEmpty()) {
-                int u = q.poll();
-                for (int v : adj.get(u)) {
-                    if (seen[v]) continue;
-                    seen[v] = true;
-                    q.offer(v);
-                }
-            }
-        }
-        return seen;
-    }
+
+public class BFSDemo{
+      public static void main(String[] args) {
+             int n = 6;
+             boolean[] visited = new boolean[n];
+             List<Integer>[] adj = new ArrayList[6];
+             for (int i = 0; i < n; i++) { adj[i] = new ArrayList<>(); }
+             adj[0] = new ArrayList<>(Arrays.asList(1, 2, 4));
+             adj[1] = new ArrayList<>(Arrays.asList(3, 4));
+             adj[2] = new ArrayList<>(Arrays.asList(5));
+
+             /*
+              * Define adjacency list and read in problem-specific input
+              *
+              * In this example, we've provided "dummy input" that's
+              * reflected in the GIF above to help illustrate the
+              * order of the recursive calls.
+              */
+             for (int i = 0; i < n; i++) {
+                     // iterate over all connected components in the graph
+                     if (!visited[i]) {
+                             Queue<Integer> q = new LinkedList<Integer>();
+                             q.add(i);
+
+                             while (q.size() > 0) {
+                                      int currentNode = q.peek();
+                                      q.poll();
+
+                                      visited[currentNode] = true;
+
+                                      for (int neighbor : adj[currentNode]) {
+                                               if (!visited[neighbor]) { q.add(neighbor); }
+                                      }
+                             }
+                     }
+             }
+      }
 }
 
 
-Four-neighbor flood fill [Java]
+Four-neighbor flood fill (RACHEL) [Java]
 File: topics/graphs/FloodFill.java
 Rectangular grid. fill counts the unseen cells of the starting color reachable from (r,c), and updates seen. components returns all same-color region sizes. O(rows*cols) time and space overall; empty grids are supported.
-import java.util.*;
+public class Floodfill {
+      private static int[][] grid; // the grid itself
+      private static int rowNum;
+      private static int colNum;                 // grid dimensions, rows and columns
+      private static boolean[][] visited; // keeps track of which nodes have been
+                              // visited
+      private static int currSize = 0; // reset to 0 each time we start a new component
 
-class FloodFill {
-    static int fill(int[][] grid, int r, int c,
-                    boolean[][] seen) {
-        int rows = grid.length;
-        int cols = rows == 0 ? 0 : grid[0].length;
-        if (r < 0 || r >= rows || c < 0 || c >= cols
-                || seen[r][c]) return 0;
-        int color = grid[r][c], size = 0;
-        int[] dr = {0, 0, -1, 1};
-        int[] dc = {1, -1, 0, 0};
-        Deque<int[]> stack = new ArrayDeque<>();
-        stack.push(new int[]{r, c});
-        seen[r][c] = true;
-        while (!stack.isEmpty()) {
-            int[] p = stack.pop();
-            size++;
-            for (int k = 0; k < 4; k++) {
-                int nr = p[0] + dr[k], nc = p[1] + dc[k];
-                if (nr < 0 || nr >= rows || nc < 0
-                        || nc >= cols || seen[nr][nc]
-                        || grid[nr][nc] != color) continue;
-                seen[nr][nc] = true;
-                stack.push(new int[]{nr, nc});
-            }
-        }
-        return size;
-    }
-    static List<Integer> components(int[][] grid) {
-        int rows = grid.length;
-        int cols = rows == 0 ? 0 : grid[0].length;
-        boolean[][] seen = new boolean[rows][cols];
-        List<Integer> sizes = new ArrayList<>();
-        for (int r = 0; r < rows; r++)
-            for (int c = 0; c < cols; c++)
-                if (!seen[r][c])
-                    sizes.add(fill(grid, r, c, seen));
-        return sizes;
-    }
+      public static void main(String[] args) {
+             /*
+              * input code and other problem-specific stuff here
+              */
+             for (int r = 0; r < rowNum; r++) {
+                     for (int c = 0; c < colNum; c++) {
+                           if (!visited[r][c]) {
+                                   currSize = 0;
+                                   /*
+                                    * start a flood fill if the square hasn't already been
+                                    * visited, and then store or otherwise use the component
+                                    * size for whatever it's needed for
+                                    */
+                                   floodfill(r, c, grid[r][c]);
+                           }
+                     }
+             }
+      }
+
+      private static void floodfill(int r, int c, int color) {
+             if ((r < 0 || r >= rowNum || c < 0 || c >= colNum) // if out of bounds
+                  || grid[r][c] != color                   // wrong color
+                  || visited[r][c] // already visited this square
+             )
+             return;
+
+   visited[r][c] = true; // mark current square as visited
+   currSize++;          // increment the size for each square we visit
+
+   // recursively call flood fill for neighboring squares
+   floodfill(r, c + 1, color);
+   floodfill(r, c - 1, color);
+   floodfill(r - 1, c, color);
+   floodfill(r + 1, c, color);
+   }
 }
 
 
@@ -5646,45 +5825,6 @@ Strings
 C++ std::string
 Cost & lifetime: Index/size: O(1); substr copies O(count); middle insert/erase/replace: O(n); find can be O(n*m) for pattern length m. Appending a character is amortized O(1). string_view is a non-owning view: the source must outlive it and not invalidate its storage. Byte indexing is not Unicode character indexing.
 
-String calls, parsing & input [C++]
-File: topics/strings/cpp_strings.hpp
-substr(pos,count) truncates count at the end but throws if pos > size(). npos is unsigned: compare with string::npos; never test p >= 0. cctype functions require unsigned char conversion (or EOF).
-// std::string stores bytes; positions/lengths use size_t.
-void string_calls() {
-  string s = "abc", t(3, 'x');
-  s += t; s.push_back('!'); s.pop_back();
-  char c = s[0]; s[0] = 'A'; // at(i) checks bounds
-  string part = s.substr(1, 3); // start, count
-  s.insert(1, "yz"); s.erase(1, 2); // start, count
-  s.replace(0, 1, "a"); // start, count, replacement
-  size_t p = s.find("xx"); // string::npos if absent
-  if (p != string::npos) part = s.substr(p);
-  p = s.rfind('x'); // last match
-  p = s.find_first_of("aeiou"); // any listed byte
-  p = s.find_first_not_of(' '); // skip leading spaces
-  bool same = (s == t), less = (s < t); // lexicographic
-  bool prefix = s.compare(0, t.size(), t) == 0;
-  reverse(s.begin(), s.end());
-  sort(s.begin(), s.end());
-  int count_x = count(s.begin(), s.end(), 'x');
-  string digits = to_string(-123);
-  size_t used;
-  long long value = stoll("7f", &used, 16); // 127
-  // stoi/stoll/stod throw on invalid/out-of-range input.
-  // They may parse a prefix; check used==input.size().
-  istringstream in("10 20"); int a, b; in >> a >> b;
-  istringstream csv("a,b,c"); string field;
-  while (getline(csv, field, ',')) { /* use field */ }
-  c = char(tolower(static_cast<unsigned char>(c)));
-  (void)p; (void)same; (void)less; (void)prefix;
-  (void)count_x; (void)value;
-}
-// cin >> s reads a token; getline(cin,s) reads a line.
-// After >>: cin.ignore(numeric_limits<streamsize>::max(),
-// '\n'); then getline. getline(cin >> ws,s) also discards
-// leading whitespace/blank lines (only if that is wanted).
-
-
 
 
 
@@ -6057,6 +6197,38 @@ struct AhoCorasick {
 };
 
 
+Prefix sums
+===========
+
+Prefix sums (SHUBAN)
+Use: Build once in O(n) for 1D or O(rows*cols) for 2D; answer each half-open range in O(1). Use long long when accumulated values can exceed int. For inclusive [l,r], query sum(l,r+1).
+
+One- and two-dimensional prefix sums (SHUBAN) [C++]
+File: topics/prefix_sums/prefix_sums.hpp
+All indices are zero-based. The 2D constructor assumes rectangular rows; empty input is supported.
+// C++17; half-open ranges [l,r) and [r1,r2) throughout.
+struct PrefixSum {
+  vector<long long> p;
+  explicit PrefixSum(const vector<long long>& a) : p(a.size()+1) {
+    for (int i = 0; i < (int)a.size(); ++i) p[i+1] = p[i] + a[i];
+  }
+  long long sum(int l, int r) const { return p[r] - p[l]; }
+};
+
+struct PrefixSum2D {
+  vector<vector<long long>> p;
+  explicit PrefixSum2D(const vector<vector<long long>>& a)
+      : p(a.size()+1, vector<long long>(a.empty() ? 1 : a[0].size()+1)) {
+    for (int i = 0; i < (int)a.size(); ++i)
+      for (int j = 0; j < (int)a[i].size(); ++j)
+        p[i+1][j+1] = a[i][j] + p[i][j+1] + p[i+1][j] - p[i][j];
+  }
+  long long sum(int r1, int c1, int r2, int c2) const {
+    return p[r2][c2] - p[r1][c2] - p[r2][c1] + p[r1][c1];
+  }
+};
+
+
 Search, DP & optimization
 =========================
 
@@ -6067,118 +6239,116 @@ Captures: [] none; [x] snapshot by value; [&x] by reference; [=] implicit copies
 
 Useful algorithms: sort and nth_element need random-access iterators. unique removes adjacent duplicates logically and returns a new end: erase the tail. next_permutation returns false and resets to ascending at the final permutation. min_element/max_element return end() for empty ranges; accumulate(...,0LL) uses a 64-bit sum.
 
-Sorting, bounds & lambda syntax [C++]
-File: topics/search/cpp_sort_lambdas.hpp
-All iterator ranges are half-open. stable_sort is O(n log n) with enough extra memory, otherwise up to O(n log^2 n) comparisons. Lambda recursion shown below requires passing itself explicitly: fib(fib,n).
-void sort_and_lambda_calls() {
-  vector<int> v{4, 1, 4, 2};
-  sort(v.begin(), v.end()); // ascending; O(n log n)
-  sort(v.begin(), v.end(), greater<int>()); // descending
-  sort(v.rbegin(), v.rend()); // also descending
-  vector<pair<int,int>> pairs{{2, 1}, {1, 3}};
-  sort(pairs.begin(), pairs.end()); // lexicographic
-  stable_sort(pairs.begin(), pairs.end(),
-    [](const auto& a, const auto& b) {
-      return a.second < b.second; // ties keep input order
-    });
-  sort(v.begin(), v.end());
-  v.erase(unique(v.begin(), v.end()), v.end());
-  auto l = lower_bound(v.begin(), v.end(), 2); // >= 2
-  auto r = upper_bound(v.begin(), v.end(), 2); // > 2
-  int occurrences = int(r-l), rank = int(l-v.begin());
-  bool found = binary_search(v.begin(), v.end(), 2);
-  // Bounds/search require matching sorted order/comparator.
-  int k = 1; // require 0 <= k < size
-  nth_element(v.begin(), v.begin()+k, v.end());
-  int kth = v[k]; // kth smallest; sides aren't sorted
-  partial_sort(v.begin(), v.begin()+k, v.end());
-  // First k smallest sorted: O(n log k); nth: avg O(n).
-  int delta = 3;
-  auto add = [delta](int x) { return x + delta; };
-  auto bump = [&delta]() { ++delta; }; bump();
-  auto fib = [](auto&& self, int n) -> int {
-    return n < 2 ? n : self(self,n-1)+self(self,n-2);
-  }; // recursion syntax only; exponential example
-  (void)occurrences; (void)rank; (void)found; (void)kth;
-  (void)add; (void)fib;
-}
-
-
 Search & dynamic programming
-Binary search / first true [Python]
+Binary search / first true (RACHEL) [Python]
 File: topics/search/binary_search.py
 binary_search requires an ascending sorted sequence; it returns any matching index or -1. first_true requires a false-then-true predicate on integer indices in [lo, hi). Example lower bound: first_true(0, len(a), lambda i: a[i] >= x). O(log n) predicate calls, O(1) auxiliary space.
-def binary_search(a, target):
-    lo, hi = 0, len(a) - 1
-    while lo <= hi:
-        mid = lo + (hi - lo) // 2
-        if a[mid] == target:
-            return mid
-        if a[mid] < target:
-            lo = mid + 1
-        else:
-            hi = mid - 1
+def binary_search(arr: list[int], target: int) -> int:
+    left, right = 0, len(arr) - 1
+    while left <= right:
+      mid = left + (right - left) // 2
+      if arr[mid] == target:
+        return mid
+      elif arr[mid] < target:
+        left = mid + 1
+      else:
+        right = mid - 1
     return -1
 
 
-def first_true(lo, hi, predicate):
-    # Search [lo, hi); return hi if all are false.
-    while lo < hi:
-        mid = lo + (hi - lo) // 2
-        if predicate(mid):
-            hi = mid
-        else:
-            lo = mid + 1
-    return lo
+def binary_search_boundary(arr: list) -> int:
+    def condition(value) -> bool:
+      pass # Returns True/False evaluation
 
 
-Kadane: maximum subarray sum [Python]
+    left, right = 0, len(arr)
+    while left < right:
+      mid = left + (right - left) // 2
+      if condition(mid):
+        right = mid
+      else:
+        left = mid + 1
+    return left
+
+
+Kadane: maximum subarray sum (RACHEL) [Python]
 File: topics/dynamic_programming/kadane.py
 O(n) time, O(1) auxiliary space. Handles all-negative input; a must be nonempty. ending is the best sum ending at the current position.
-def max_subarray_sum(a):
-    # Nonempty a; subarray must also be nonempty.
-    best = ending = a[0]
-    for i in range(1, len(a)):
-        x = a[i]
-        ending = max(x, ending + x)
-        best = max(best, ending)
-    return best
+def maxSubarraySum(arr):
+
+
+ # Stores the result (maximum sum found so far)
+ res = arr[0]
+
+
+ # Maximum sum of subarray ending at current position
+ maxEnding = arr[0]
+
+
+ for i in range(1, len(arr)):
+
+
+   # Either extend the previous subarray or start
+   # new from current element
+   maxEnding = max(maxEnding + arr[i], arr[i])
+
+
+   # Update result if the new subarray sum is larger
+   res = max(res, maxEnding)
+
+
+ return res
+
+
+if __name__ == "__main__":
+ arr = [2, 3, -8, 7, -1, 2, 3]
+ print(maxSubarraySum(arr))
 
 
 Bit operations
-Parity, masks, XOR and shifts [Java]
+Parity, masks, XOR and shifts (RACHEL) [Java]
 File: topics/bitwise/Bitwise.java
 XOR identities: x^x=0, x^0=x. unique assumes all other values occur an even number of times. XOR swap uses distinct storage; a temporary variable is clearer. x<<k multiplies by 2^k only without overflow; signed x>>k rounds toward negative infinity, unlike Java integer division for negative values. >>> shifts in zero bits. int shifts mask k with 31; long shifts mask with 63. Use 1L<<bit for long masks. Bit operations are not automatically faster than equivalent arithmetic.
-class Bitwise {
-    static boolean isEven(int x) {
-        return (x & 1) == 0;
-    }
-    static boolean hasAll(int mask, int flags) {
-        return (mask & flags) == flags;
-    }
-    static int[] flags(int mask, int bit) {
-        int flag = 1 << bit; // 0 <= bit < 32
-        return new int[]{mask | flag, // set
-                         mask & ~flag, // clear
-                         mask ^ flag}; // toggle
-    }
-    static int unique(int[] a) {
-        int result = 0;
-        for (int x : a) result ^= x;
-        return result;
-    }
-    static int[] xorSwap(int x, int y) {
-        x ^= y; y ^= x; x ^= y;
-        return new int[]{x, y};
-    }
-    static int[] shifts(int x, int k) {
-        // Java int shift count is k & 31.
-        return new int[]{x << k, x >> k, x >>> k};
-    }
-    // READ=1, WRITE=2, EXECUTE=4;
-    // mask = READ | WRITE; (mask & WRITE) != 0
-    // 20 << 1 == 40; 20 >> 1 == 10; 20 << 2 == 80
+int num = 45;
+
+if ((num & 1) == 0) {
+          System.out.println("Even");
+} else {
+          System.out.println("Odd"); // 45 is binary 101101 (ends in 1, so Odd)
 }
+
+// Define the bit positions (powers of 2)
+final int READ       = 1; // 0001
+final int WRITE      = 2; // 0010
+final int EXECUTE = 4; // 0100
+
+// 1. Combine permissions using OR (|)
+int userPermissions = READ | WRITE; // 0011 (Can read and write)
+
+// 2. Check if a user has a specific permission using AND (&)
+boolean canWrite       = (userPermissions & WRITE) != 0;          // true (0011 & 0010 != 0)
+boolean canExecute = (userPermissions & EXECUTE) != 0; // false (0011 & 0100 == 0)
+
+int x = 10;
+int y = 5;
+
+x = x ^ y;
+y = x ^ y; // y becomes 10
+x = x ^ y; // x becomes 5
+
+System.out.println("x: " + x + ", y: " + y); // x: 5, y: 10
+
+int speed = 20;
+int doubleSpeed = speed << 1; // 20 * 2 = 40
+int halfSpeed         = speed >> 1; // 20 / 2 = 10
+int quadSpeed         = speed << 2; // 20 * 4 = 80
+
+int[] nums = {4, 1, 2, 1, 2};
+int unique = 0;
+for (int num : nums) {
+         unique ^= num;
+}
+System.out.println("Unique number: " + unique); // Outputs 4
 
 
 

@@ -1,16 +1,51 @@
-class BaseConversion {
-    static String toBase(int value, int base) {
-        if (base < 2 || base > 36)
-            throw new IllegalArgumentException("base");
-        return Integer.toString(value, base);
+public class BaseConversion {
+
+
+  public static void main(String[] args) {
+
+
+    // ==========================================
+
+
+    // 1. BASE 10 ---> BASE 2 (Decimal to Binary)
+
+
+    // ==========================================
+
+
+    int decimalNum = 13;
+
+        // Built-in method: Integer.toBinaryString(int)
+
+        String binaryStr = Integer.toBinaryString(decimalNum);
+
+        System.out.println("Decimal 13 to Binary: " + binaryStr); // Output: "1101"
+
+
+
+        // ==========================================
+
+
+        // 2. BASE 2 ---> BASE 10 (Binary to Decimal)
+
+
+        // ==========================================
+
+
+        String binaryInput = "1101";
+
+
+
+        // Built-in method: Integer.parseInt(string, base)
+
+
+        int decimalOutput = Integer.parseInt(binaryInput, 2);
+
+
+        System.out.println("Binary 1101 to Decimal: " + decimalOutput); // Output: 13
+
+
     }
-    static int fromBase(String text, int base) {
-        return Integer.parseInt(text, base);
-    }
-    // Integer.toBinaryString(13) == "1101"
-    // Integer.parseInt("1101", 2) == 13
-    // Integer.parseInt("15", 7) == 12
-    // Integer.parseInt("abc", 36) == 13368
-    // Integer.toString(13368, 36).equals("abc")
-    // Use Long.parseLong / Long.toString for long.
+
+
 }

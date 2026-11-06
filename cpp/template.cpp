@@ -3,11 +3,6 @@
 using namespace std;
 using ll = long long;
 using ld = long double;
-using pii = pair<int, int>;
-using vi = vector<int>;
-#define rep(i, a, b) for (int i = a; i < (b); ++i)
-#define all(x) begin(x), end(x)
-#define sz(x) (int)(x).size()
 template <typename... T>
 void in(T&... args) {(cin >> ... >> args);}
 template <typename... T>

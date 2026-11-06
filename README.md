@@ -41,6 +41,8 @@ lambda captures, sorting and binary-search APIs. The modular arithmetic section
 adds division/inverse conditions, exponent rules, linear congruences, CRT,
 binomial coefficients and geometric sums, with helpers that take an explicit
 modulus and use 128-bit intermediates for 64-bit arithmetic.
+The opening C++ subsection also prints the compact Makefile in
+`topics/programming_languages/`.
 
 ## Build and check
 

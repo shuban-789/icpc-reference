@@ -1,25 +1,33 @@
-import java.util.*;
+import java.util.Arrays;
 
-class ArraysReference {
-    static int sortAndSearch(int[] a, int target) {
-        Arrays.sort(a); // mutates a; ascending order
-        int i = Arrays.binarySearch(a, target);
-        // i >= 0: a match; duplicates: any match.
-        // i < 0: insertion point = -i - 1.
-        return i;
-    }
-    static void arrays(int n, int rows, int cols) {
-        int[] a = new int[n]; // initially zero
-        String[] names = {"Alice", "Bob"};
-        int size = names.length; // field, no ()
-        String first = names[0];
-        names[0] = "Charlie";
-        System.out.println(Arrays.toString(names));
-        int[][] matrix = new int[rows][cols];
-        for (int r = 0; r < matrix.length; r++) {
-            for (int c = 0; c < matrix[r].length; c++)
-                System.out.print(matrix[r][c] + " ");
-            System.out.println();
+
+public class ArrayExample {
+    public static void main(String[] args) {
+      String[] employees = {"Charlie", "Bob", "Alice", "Dan"};
+
+        // 1. Sort it first!
+        Arrays.sort(employees); // Now: ["Alice", "Bob", "Charlie", "Dan"]
+
+
+        // 2. Search it!
+        int targetIndex = Arrays.binarySearch(employees, "Bob");
+
+
+        if (targetIndex >= 0) {
+            System.out.println("Found Bob at position " + targetIndex);
+        } else {
+            System.out.println("Employee not found.");
         }
     }
+}
+
+
+int[][] emptyMatrix = new int[2][3];
+
+// Rows are accessed via .length, columns via matrix[i].length
+for (int i = 0; i < matrix.length; i++) {
+    for (int j = 0; j < matrix[i].length; j++) {
+        System.out.print(matrix[i][j] + " ");
+    }
+    System.out.println();
 }

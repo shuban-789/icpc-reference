@@ -1,7 +1,7 @@
 LATEXMK ?= latexmk
 PYTHON ?= python3
 
-.PHONY: all generate check check-kactl clean cpp
+.PHONY: all generate check check-kactl verify-sources clean cpp
 
 all: generate
 	mkdir -p build/latex
@@ -21,6 +21,9 @@ check: generate
 
 check-kactl: generate
 	$(PYTHON) scripts/check_kactl.py
+
+verify-sources: generate
+	$(PYTHON) scripts/verify_sources.py
 
 cpp:
 	mkdir -p build
