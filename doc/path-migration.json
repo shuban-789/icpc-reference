@@ -1,0 +1,23 @@
+{
+  "cpp/basics/sol.cpp": "cpp/template.cpp",
+  "java/basics/Main.java": "java/Main.java",
+  "python/basics/template.py": "python/template.py",
+  "python/search/binary_search.py": "topics/search/binary_search.py",
+  "python/dynamic_programming/kadane.py": "topics/dynamic_programming/kadane.py",
+  "python/graphs/dfs.py": "topics/graphs/dfs.py",
+  "java/graphs/DFS.java": "topics/graphs/DFS.java",
+  "python/graphs/bfs.py": "topics/graphs/bfs.py",
+  "java/graphs/BFS.java": "topics/graphs/BFS.java",
+  "java/graphs/FloodFill.java": "topics/graphs/FloodFill.java",
+  "java/collections/ArraysReference.java": "topics/collections/ArraysReference.java",
+  "python/collections/arrays.py": "topics/collections/arrays.py",
+  "java/collections/Lists.java": "topics/collections/Lists.java",
+  "python/collections/sets.py": "topics/collections/sets.py",
+  "java/collections/Sets.java": "topics/collections/Sets.java",
+  "python/collections/maps.py": "topics/collections/maps.py",
+  "java/collections/Maps.java": "topics/collections/Maps.java",
+  "java/collections/Queues.java": "topics/collections/Queues.java",
+  "java/bitwise/Bitwise.java": "topics/bitwise/Bitwise.java",
+  "python/numeral_systems/base_conversion.py": "topics/numeral_systems/base_conversion.py",
+  "java/numeral_systems/BaseConversion.java": "topics/numeral_systems/BaseConversion.java"
+}

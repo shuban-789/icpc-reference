@@ -1,0 +1,677 @@
+{
+  "contest/.bashrc": {
+    "path": "vendor/kactl/content/contest/.bashrc",
+    "language": "bash",
+    "metadata": "3 lines"
+  },
+  "contest/.vimrc": {
+    "path": "vendor/kactl/content/contest/.vimrc",
+    "language": "raw",
+    "metadata": "6 lines"
+  },
+  "contest/hash.sh": {
+    "path": "vendor/kactl/content/contest/hash.sh",
+    "language": "raw",
+    "metadata": "3 lines"
+  },
+  "contest/troubleshoot.txt": {
+    "path": "vendor/kactl/content/contest/troubleshoot.txt",
+    "language": "raw",
+    "metadata": "52 lines"
+  },
+  "data-structures/OrderStatisticTree.h": {
+    "path": "vendor/kactl/content/data-structures/OrderStatisticTree.h",
+    "language": "C++",
+    "metadata": "782797, 16 lines"
+  },
+  "data-structures/HashMap.h": {
+    "path": "vendor/kactl/content/data-structures/HashMap.h",
+    "language": "C++",
+    "metadata": "d77092, 7 lines"
+  },
+  "data-structures/SegmentTree.h": {
+    "path": "vendor/kactl/content/data-structures/SegmentTree.h",
+    "language": "C++",
+    "metadata": "0f4bdb, 19 lines"
+  },
+  "data-structures/LazySegmentTree.h": {
+    "path": "vendor/kactl/content/data-structures/LazySegmentTree.h",
+    "language": "C++",
+    "metadata": "34ecf5, 50 lines"
+  },
+  "data-structures/UnionFindRollback.h": {
+    "path": "vendor/kactl/content/data-structures/UnionFindRollback.h",
+    "language": "C++",
+    "metadata": "de4ad0, 21 lines"
+  },
+  "data-structures/SubMatrix.h": {
+    "path": "vendor/kactl/content/data-structures/SubMatrix.h",
+    "language": "C++",
+    "metadata": "c59ada, 13 lines"
+  },
+  "data-structures/Matrix.h": {
+    "path": "vendor/kactl/content/data-structures/Matrix.h",
+    "language": "C++",
+    "metadata": "4da5a2, 26 lines"
+  },
+  "data-structures/LineContainer.h": {
+    "path": "vendor/kactl/content/data-structures/LineContainer.h",
+    "language": "C++",
+    "metadata": "8ec1c7, 30 lines"
+  },
+  "data-structures/Treap.h": {
+    "path": "vendor/kactl/content/data-structures/Treap.h",
+    "language": "C++",
+    "metadata": "1754b4, 53 lines"
+  },
+  "data-structures/FenwickTree.h": {
+    "path": "vendor/kactl/content/data-structures/FenwickTree.h",
+    "language": "C++",
+    "metadata": "e62fac, 22 lines"
+  },
+  "data-structures/FenwickTree2d.h": {
+    "path": "vendor/kactl/content/data-structures/FenwickTree2d.h",
+    "language": "C++",
+    "metadata": "157f07, 22 lines"
+  },
+  "data-structures/RMQ.h": {
+    "path": "vendor/kactl/content/data-structures/RMQ.h",
+    "language": "C++",
+    "metadata": "510c32, 16 lines"
+  },
+  "data-structures/MoQueries.h": {
+    "path": "vendor/kactl/content/data-structures/MoQueries.h",
+    "language": "C++",
+    "metadata": "a12ef4, 49 lines"
+  },
+  "numerical/Polynomial.h": {
+    "path": "vendor/kactl/content/numerical/Polynomial.h",
+    "language": "C++",
+    "metadata": "c9b7b0, 17 lines"
+  },
+  "numerical/PolyRoots.h": {
+    "path": "vendor/kactl/content/numerical/PolyRoots.h",
+    "language": "C++",
+    "metadata": "b00bfe, 23 lines"
+  },
+  "numerical/PolyInterpolate.h": {
+    "path": "vendor/kactl/content/numerical/PolyInterpolate.h",
+    "language": "C++",
+    "metadata": "08bf48, 13 lines"
+  },
+  "numerical/BerlekampMassey.h": {
+    "path": "vendor/kactl/content/numerical/BerlekampMassey.h",
+    "language": "C++",
+    "metadata": "96548b, 20 lines"
+  },
+  "numerical/LinearRecurrence.h": {
+    "path": "vendor/kactl/content/numerical/LinearRecurrence.h",
+    "language": "C++",
+    "metadata": "f4e444, 26 lines"
+  },
+  "numerical/GoldenSectionSearch.h": {
+    "path": "vendor/kactl/content/numerical/GoldenSectionSearch.h",
+    "language": "C++",
+    "metadata": "31d45b, 14 lines"
+  },
+  "numerical/HillClimbing.h": {
+    "path": "vendor/kactl/content/numerical/HillClimbing.h",
+    "language": "C++",
+    "metadata": "8eeeaf, 14 lines"
+  },
+  "numerical/Integrate.h": {
+    "path": "vendor/kactl/content/numerical/Integrate.h",
+    "language": "C++",
+    "metadata": "4756fc, 7 lines"
+  },
+  "numerical/IntegrateAdaptive.h": {
+    "path": "vendor/kactl/content/numerical/IntegrateAdaptive.h",
+    "language": "C++",
+    "metadata": "92dd79, 15 lines"
+  },
+  "numerical/Simplex.h": {
+    "path": "vendor/kactl/content/numerical/Simplex.h",
+    "language": "C++",
+    "metadata": "aa8530, 68 lines"
+  },
+  "numerical/Determinant.h": {
+    "path": "vendor/kactl/content/numerical/Determinant.h",
+    "language": "C++",
+    "metadata": "bd5cec, 15 lines"
+  },
+  "numerical/IntDeterminant.h": {
+    "path": "vendor/kactl/content/numerical/IntDeterminant.h",
+    "language": "C++",
+    "metadata": "3313dc, 18 lines"
+  },
+  "numerical/SolveLinear.h": {
+    "path": "vendor/kactl/content/numerical/SolveLinear.h",
+    "language": "C++",
+    "metadata": "44c9ab, 38 lines"
+  },
+  "numerical/SolveLinear2.h": {
+    "path": "vendor/kactl/content/numerical/SolveLinear2.h",
+    "language": "C++",
+    "metadata": "08e495, 7 lines"
+  },
+  "numerical/SolveLinearBinary.h": {
+    "path": "vendor/kactl/content/numerical/SolveLinearBinary.h",
+    "language": "C++",
+    "metadata": "fa2d7a, 34 lines"
+  },
+  "numerical/MatrixInverse.h": {
+    "path": "vendor/kactl/content/numerical/MatrixInverse.h",
+    "language": "C++",
+    "metadata": "ebfff6, 35 lines"
+  },
+  "numerical/Tridiagonal.h": {
+    "path": "vendor/kactl/content/numerical/Tridiagonal.h",
+    "language": "C++",
+    "metadata": "8f9fa8, 26 lines"
+  },
+  "numerical/FastFourierTransform.h": {
+    "path": "vendor/kactl/content/numerical/FastFourierTransform.h",
+    "language": "C++",
+    "metadata": "00ced6, 35 lines"
+  },
+  "numerical/FastFourierTransformMod.h": {
+    "path": "vendor/kactl/content/numerical/FastFourierTransformMod.h",
+    "language": "C++",
+    "metadata": "b82773, 22 lines"
+  },
+  "numerical/NumberTheoreticTransform.h": {
+    "path": "vendor/kactl/content/numerical/NumberTheoreticTransform.h",
+    "language": "C++",
+    "metadata": "d54056, 35 lines"
+  },
+  "numerical/FastSubsetTransform.h": {
+    "path": "vendor/kactl/content/numerical/FastSubsetTransform.h",
+    "language": "C++",
+    "metadata": "464cf3, 16 lines"
+  },
+  "number-theory/ModularArithmetic.h": {
+    "path": "vendor/kactl/content/number-theory/ModularArithmetic.h",
+    "language": "C++",
+    "metadata": "ea1ac7, 19 lines"
+  },
+  "number-theory/ModInverse.h": {
+    "path": "vendor/kactl/content/number-theory/ModInverse.h",
+    "language": "C++",
+    "metadata": "6f684f, 3 lines"
+  },
+  "number-theory/ModPow.h": {
+    "path": "vendor/kactl/content/number-theory/ModPow.h",
+    "language": "C++",
+    "metadata": "b83e45, 8 lines"
+  },
+  "number-theory/ModLog.h": {
+    "path": "vendor/kactl/content/number-theory/ModLog.h",
+    "language": "C++",
+    "metadata": "c040b8, 11 lines"
+  },
+  "number-theory/ModSum.h": {
+    "path": "vendor/kactl/content/number-theory/ModSum.h",
+    "language": "C++",
+    "metadata": "5c5bc5, 16 lines"
+  },
+  "number-theory/ModMulLL.h": {
+    "path": "vendor/kactl/content/number-theory/ModMulLL.h",
+    "language": "C++",
+    "metadata": "bbbd8f, 11 lines"
+  },
+  "number-theory/ModSqrt.h": {
+    "path": "vendor/kactl/content/number-theory/ModSqrt.h",
+    "language": "C++",
+    "metadata": "19a793, 24 lines"
+  },
+  "number-theory/FastEratosthenes.h": {
+    "path": "vendor/kactl/content/number-theory/FastEratosthenes.h",
+    "language": "C++",
+    "metadata": "6b2912, 20 lines"
+  },
+  "number-theory/MillerRabin.h": {
+    "path": "vendor/kactl/content/number-theory/MillerRabin.h",
+    "language": "C++",
+    "metadata": "60dcd1, 12 lines"
+  },
+  "number-theory/Factor.h": {
+    "path": "vendor/kactl/content/number-theory/Factor.h",
+    "language": "C++",
+    "metadata": "d8d98d, 18 lines"
+  },
+  "number-theory/euclid.h": {
+    "path": "vendor/kactl/content/number-theory/euclid.h",
+    "language": "C++",
+    "metadata": "33ba8f, 5 lines"
+  },
+  "number-theory/CRT.h": {
+    "path": "vendor/kactl/content/number-theory/CRT.h",
+    "language": "C++",
+    "metadata": "04d93a, 7 lines"
+  },
+  "number-theory/phiFunction.h": {
+    "path": "vendor/kactl/content/number-theory/phiFunction.h",
+    "language": "C++",
+    "metadata": "cf7d6d, 8 lines"
+  },
+  "number-theory/ContinuedFractions.h": {
+    "path": "vendor/kactl/content/number-theory/ContinuedFractions.h",
+    "language": "C++",
+    "metadata": "dd6c5e, 21 lines"
+  },
+  "number-theory/FracBinarySearch.h": {
+    "path": "vendor/kactl/content/number-theory/FracBinarySearch.h",
+    "language": "C++",
+    "metadata": "27ab3e, 25 lines"
+  },
+  "combinatorial/IntPerm.h": {
+    "path": "vendor/kactl/content/combinatorial/IntPerm.h",
+    "language": "C++",
+    "metadata": "044568, 6 lines"
+  },
+  "combinatorial/multinomial.h": {
+    "path": "vendor/kactl/content/combinatorial/multinomial.h",
+    "language": "C++",
+    "metadata": "a0a312, 5 lines"
+  },
+  "graph/BellmanFord.h": {
+    "path": "vendor/kactl/content/graph/BellmanFord.h",
+    "language": "C++",
+    "metadata": "830a8f, 23 lines"
+  },
+  "graph/FloydWarshall.h": {
+    "path": "vendor/kactl/content/graph/FloydWarshall.h",
+    "language": "C++",
+    "metadata": "531245, 12 lines"
+  },
+  "graph/TopoSort.h": {
+    "path": "vendor/kactl/content/graph/TopoSort.h",
+    "language": "C++",
+    "metadata": "d678d8, 8 lines"
+  },
+  "graph/PushRelabel.h": {
+    "path": "vendor/kactl/content/graph/PushRelabel.h",
+    "language": "C++",
+    "metadata": "0ae1d4, 48 lines"
+  },
+  "graph/MinCostMaxFlow.h": {
+    "path": "vendor/kactl/content/graph/MinCostMaxFlow.h",
+    "language": "C++",
+    "metadata": "58385b, 79 lines"
+  },
+  "graph/EdmondsKarp.h": {
+    "path": "vendor/kactl/content/graph/EdmondsKarp.h",
+    "language": "C++",
+    "metadata": "482fe0, 36 lines"
+  },
+  "graph/MinCut.h": {
+    "path": "vendor/kactl/content/graph/MinCut.h",
+    "language": "C++",
+    "metadata": ""
+  },
+  "graph/GlobalMinCut.h": {
+    "path": "vendor/kactl/content/graph/GlobalMinCut.h",
+    "language": "C++",
+    "metadata": "8b0e19, 21 lines"
+  },
+  "graph/GomoryHu.h": {
+    "path": "vendor/kactl/content/graph/GomoryHu.h",
+    "language": "C++",
+    "metadata": "0418b3, 13 lines"
+  },
+  "graph/HopcroftKarp.h": {
+    "path": "vendor/kactl/content/graph/HopcroftKarp.h",
+    "language": "C++",
+    "metadata": "731cfb, 20 lines"
+  },
+  "graph/DFSMatching.h": {
+    "path": "vendor/kactl/content/graph/DFSMatching.h",
+    "language": "C++",
+    "metadata": "522b98, 22 lines"
+  },
+  "graph/MinimumVertexCover.h": {
+    "path": "vendor/kactl/content/graph/MinimumVertexCover.h",
+    "language": "C++",
+    "metadata": "da4196, 20 lines"
+  },
+  "graph/WeightedMatching.h": {
+    "path": "vendor/kactl/content/graph/WeightedMatching.h",
+    "language": "C++",
+    "metadata": "8f41c7, 24 lines"
+  },
+  "graph/GeneralMatching.h": {
+    "path": "vendor/kactl/content/graph/GeneralMatching.h",
+    "language": "C++",
+    "metadata": "cb1912, 40 lines"
+  },
+  "graph/SCC.h": {
+    "path": "vendor/kactl/content/graph/SCC.h",
+    "language": "C++",
+    "metadata": "76b5c9, 24 lines"
+  },
+  "graph/BiconnectedComponents.h": {
+    "path": "vendor/kactl/content/graph/BiconnectedComponents.h",
+    "language": "C++",
+    "metadata": "c6b7c7, 32 lines"
+  },
+  "graph/2sat.h": {
+    "path": "vendor/kactl/content/graph/2sat.h",
+    "language": "C++",
+    "metadata": "5f9706, 56 lines"
+  },
+  "graph/EulerWalk.h": {
+    "path": "vendor/kactl/content/graph/EulerWalk.h",
+    "language": "C++",
+    "metadata": "780b64, 15 lines"
+  },
+  "graph/EdgeColoring.h": {
+    "path": "vendor/kactl/content/graph/EdgeColoring.h",
+    "language": "C++",
+    "metadata": "e210e2, 31 lines"
+  },
+  "graph/MaximalCliques.h": {
+    "path": "vendor/kactl/content/graph/MaximalCliques.h",
+    "language": "C++",
+    "metadata": "b0d5b1, 12 lines"
+  },
+  "graph/MaximumClique.h": {
+    "path": "vendor/kactl/content/graph/MaximumClique.h",
+    "language": "C++",
+    "metadata": "f7c0bc, 49 lines"
+  },
+  "graph/MaximumIndependentSet.h": {
+    "path": "vendor/kactl/content/graph/MaximumIndependentSet.h",
+    "language": "C++",
+    "metadata": ""
+  },
+  "graph/BinaryLifting.h": {
+    "path": "vendor/kactl/content/graph/BinaryLifting.h",
+    "language": "C++",
+    "metadata": "bfce85, 25 lines"
+  },
+  "graph/LCA.h": {
+    "path": "vendor/kactl/content/graph/LCA.h",
+    "language": "C++",
+    "metadata": "0f62fb, 21 lines"
+  },
+  "graph/CompressTree.h": {
+    "path": "vendor/kactl/content/graph/CompressTree.h",
+    "language": "C++",
+    "metadata": "9775a0, 21 lines"
+  },
+  "graph/HLD.h": {
+    "path": "vendor/kactl/content/graph/HLD.h",
+    "language": "C++",
+    "metadata": "9547af, 46 lines"
+  },
+  "graph/LinkCutTree.h": {
+    "path": "vendor/kactl/content/graph/LinkCutTree.h",
+    "language": "C++",
+    "metadata": "0fb462, 90 lines"
+  },
+  "graph/DirectedMST.h": {
+    "path": "vendor/kactl/content/graph/DirectedMST.h",
+    "language": "C++",
+    "metadata": "39e620, 60 lines"
+  },
+  "geometry/Point.h": {
+    "path": "vendor/kactl/content/geometry/Point.h",
+    "language": "C++",
+    "metadata": "47ec0a, 28 lines"
+  },
+  "geometry/lineDistance.h": {
+    "path": "vendor/kactl/content/geometry/lineDistance.h",
+    "language": "C++",
+    "metadata": "53630a, 4 lines"
+  },
+  "geometry/SegmentDistance.h": {
+    "path": "vendor/kactl/content/geometry/SegmentDistance.h",
+    "language": "C++",
+    "metadata": "d5f39f, 6 lines"
+  },
+  "geometry/SegmentIntersection.h": {
+    "path": "vendor/kactl/content/geometry/SegmentIntersection.h",
+    "language": "C++",
+    "metadata": "9d57f2, 13 lines"
+  },
+  "geometry/lineIntersection.h": {
+    "path": "vendor/kactl/content/geometry/lineIntersection.h",
+    "language": "C++",
+    "metadata": "a01f81, 8 lines"
+  },
+  "geometry/sideOf.h": {
+    "path": "vendor/kactl/content/geometry/sideOf.h",
+    "language": "C++",
+    "metadata": "ca4665, 9 lines"
+  },
+  "geometry/OnSegment.h": {
+    "path": "vendor/kactl/content/geometry/OnSegment.h",
+    "language": "C++",
+    "metadata": "c597e8, 3 lines"
+  },
+  "geometry/linearTransformation.h": {
+    "path": "vendor/kactl/content/geometry/linearTransformation.h",
+    "language": "C++",
+    "metadata": "7871e9, 5 lines"
+  },
+  "geometry/Angle.h": {
+    "path": "vendor/kactl/content/geometry/Angle.h",
+    "language": "C++",
+    "metadata": "0f0602, 35 lines"
+  },
+  "geometry/CircleIntersection.h": {
+    "path": "vendor/kactl/content/geometry/CircleIntersection.h",
+    "language": "C++",
+    "metadata": "84d6d3, 11 lines"
+  },
+  "geometry/CircleTangents.h": {
+    "path": "vendor/kactl/content/geometry/CircleTangents.h",
+    "language": "C++",
+    "metadata": "b0153d, 13 lines"
+  },
+  "geometry/CirclePolygonIntersection.h": {
+    "path": "vendor/kactl/content/geometry/CirclePolygonIntersection.h",
+    "language": "C++",
+    "metadata": "19add1, 19 lines"
+  },
+  "geometry/circumcircle.h": {
+    "path": "vendor/kactl/content/geometry/circumcircle.h",
+    "language": "C++",
+    "metadata": "6cffc5, 9 lines"
+  },
+  "geometry/MinimumEnclosingCircle.h": {
+    "path": "vendor/kactl/content/geometry/MinimumEnclosingCircle.h",
+    "language": "C++",
+    "metadata": "09dd0a, 17 lines"
+  },
+  "geometry/InsidePolygon.h": {
+    "path": "vendor/kactl/content/geometry/InsidePolygon.h",
+    "language": "C++",
+    "metadata": "2bf504, 11 lines"
+  },
+  "geometry/PolygonArea.h": {
+    "path": "vendor/kactl/content/geometry/PolygonArea.h",
+    "language": "C++",
+    "metadata": "f12300, 6 lines"
+  },
+  "geometry/PolygonCenter.h": {
+    "path": "vendor/kactl/content/geometry/PolygonCenter.h",
+    "language": "C++",
+    "metadata": "9706dc, 9 lines"
+  },
+  "geometry/PolygonCut.h": {
+    "path": "vendor/kactl/content/geometry/PolygonCut.h",
+    "language": "C++",
+    "metadata": "d07181, 13 lines"
+  },
+  "geometry/ConvexHull.h": {
+    "path": "vendor/kactl/content/geometry/ConvexHull.h",
+    "language": "C++",
+    "metadata": "310954, 13 lines"
+  },
+  "geometry/HullDiameter.h": {
+    "path": "vendor/kactl/content/geometry/HullDiameter.h",
+    "language": "C++",
+    "metadata": "c571b8, 12 lines"
+  },
+  "geometry/PointInsideHull.h": {
+    "path": "vendor/kactl/content/geometry/PointInsideHull.h",
+    "language": "C++",
+    "metadata": "71446b, 14 lines"
+  },
+  "geometry/LineHullIntersection.h": {
+    "path": "vendor/kactl/content/geometry/LineHullIntersection.h",
+    "language": "C++",
+    "metadata": "7cf45b, 39 lines"
+  },
+  "geometry/ClosestPair.h": {
+    "path": "vendor/kactl/content/geometry/ClosestPair.h",
+    "language": "C++",
+    "metadata": "ac41a6, 17 lines"
+  },
+  "geometry/kdTree.h": {
+    "path": "vendor/kactl/content/geometry/kdTree.h",
+    "language": "C++",
+    "metadata": "69ff55, 63 lines"
+  },
+  "geometry/FastDelaunay.h": {
+    "path": "vendor/kactl/content/geometry/FastDelaunay.h",
+    "language": "C++",
+    "metadata": "eefdf5, 88 lines"
+  },
+  "geometry/PolyhedronVolume.h": {
+    "path": "vendor/kactl/content/geometry/PolyhedronVolume.h",
+    "language": "C++",
+    "metadata": "3058c3, 6 lines"
+  },
+  "geometry/Point3D.h": {
+    "path": "vendor/kactl/content/geometry/Point3D.h",
+    "language": "C++",
+    "metadata": "a94b7c, 31 lines"
+  },
+  "geometry/3dHull.h": {
+    "path": "vendor/kactl/content/geometry/3dHull.h",
+    "language": "C++",
+    "metadata": "5b45fc, 49 lines"
+  },
+  "geometry/sphericalDistance.h": {
+    "path": "vendor/kactl/content/geometry/sphericalDistance.h",
+    "language": "C++",
+    "metadata": "611f07, 8 lines"
+  },
+  "strings/KMP.h": {
+    "path": "vendor/kactl/content/strings/KMP.h",
+    "language": "C++",
+    "metadata": "d4375c, 16 lines"
+  },
+  "strings/Zfunc.h": {
+    "path": "vendor/kactl/content/strings/Zfunc.h",
+    "language": "C++",
+    "metadata": "ee09e2, 12 lines"
+  },
+  "strings/Manacher.h": {
+    "path": "vendor/kactl/content/strings/Manacher.h",
+    "language": "C++",
+    "metadata": "e7ad79, 13 lines"
+  },
+  "strings/MinRotation.h": {
+    "path": "vendor/kactl/content/strings/MinRotation.h",
+    "language": "C++",
+    "metadata": "d07a42, 8 lines"
+  },
+  "strings/SuffixArray.h": {
+    "path": "vendor/kactl/content/strings/SuffixArray.h",
+    "language": "C++",
+    "metadata": "635552, 22 lines"
+  },
+  "strings/SuffixTree.h": {
+    "path": "vendor/kactl/content/strings/SuffixTree.h",
+    "language": "C++",
+    "metadata": "aae0b8, 50 lines"
+  },
+  "strings/Hashing.h": {
+    "path": "vendor/kactl/content/strings/Hashing.h",
+    "language": "C++",
+    "metadata": "2d2a67, 44 lines"
+  },
+  "strings/AhoCorasick.h": {
+    "path": "vendor/kactl/content/strings/AhoCorasick.h",
+    "language": "C++",
+    "metadata": "f35677, 66 lines"
+  },
+  "various/IntervalContainer.h": {
+    "path": "vendor/kactl/content/various/IntervalContainer.h",
+    "language": "C++",
+    "metadata": "edce47, 23 lines"
+  },
+  "various/IntervalCover.h": {
+    "path": "vendor/kactl/content/various/IntervalCover.h",
+    "language": "C++",
+    "metadata": "9e9d8d, 19 lines"
+  },
+  "various/ConstantIntervals.h": {
+    "path": "vendor/kactl/content/various/ConstantIntervals.h",
+    "language": "C++",
+    "metadata": "753a4c, 19 lines"
+  },
+  "various/TernarySearch.h": {
+    "path": "vendor/kactl/content/various/TernarySearch.h",
+    "language": "C++",
+    "metadata": "9155b4, 11 lines"
+  },
+  "various/LIS.h": {
+    "path": "vendor/kactl/content/various/LIS.h",
+    "language": "C++",
+    "metadata": "2932a0, 17 lines"
+  },
+  "various/FastKnapsack.h": {
+    "path": "vendor/kactl/content/various/FastKnapsack.h",
+    "language": "C++",
+    "metadata": "b20ccc, 16 lines"
+  },
+  "various/KnuthDP.h": {
+    "path": "vendor/kactl/content/various/KnuthDP.h",
+    "language": "C++",
+    "metadata": ""
+  },
+  "various/DivideAndConquerDP.h": {
+    "path": "vendor/kactl/content/various/DivideAndConquerDP.h",
+    "language": "C++",
+    "metadata": "d38d2b, 18 lines"
+  },
+  "various/FastMod.h": {
+    "path": "vendor/kactl/content/various/FastMod.h",
+    "language": "C++",
+    "metadata": "751a02, 8 lines"
+  },
+  "various/FastInput.h": {
+    "path": "vendor/kactl/content/various/FastInput.h",
+    "language": "C++",
+    "metadata": "7b3c70, 17 lines"
+  },
+  "various/BumpAllocator.h": {
+    "path": "vendor/kactl/content/various/BumpAllocator.h",
+    "language": "C++",
+    "metadata": "745db2, 8 lines"
+  },
+  "various/SmallPtr.h": {
+    "path": "vendor/kactl/content/various/SmallPtr.h",
+    "language": "C++",
+    "metadata": "2dd6c9, 10 lines"
+  },
+  "various/BumpAllocatorSTL.h": {
+    "path": "vendor/kactl/content/various/BumpAllocatorSTL.h",
+    "language": "C++",
+    "metadata": "bb66d4, 14 lines"
+  },
+  "various/SIMD.h": {
+    "path": "vendor/kactl/content/various/SIMD.h",
+    "language": "C++",
+    "metadata": "c9ac08, 43 lines"
+  },
+  "appendix/techniques.txt": {
+    "path": "vendor/kactl/content/appendix/techniques.txt",
+    "language": "raw",
+    "metadata": "159 lines"
+  }
+}

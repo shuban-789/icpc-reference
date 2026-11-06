@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.class
+/cpp/sol
+/build/
+/doc/*.toc
+/doc/*.aux
+/doc/*.log
+/doc/*.out
+/doc/*.fdb_latexmk
+/doc/*.fls
+/doc/*.synctex.gz

@@ -1,0 +1,448 @@
+{
+  "layout": {
+    "paper": "a4paper",
+    "columns": 3,
+    "margin_mm": 6,
+    "column_gap_mm": 4,
+    "body_size_pt": 7.4,
+    "body_leading_pt": 8.0,
+    "code_size_pt": 7.0,
+    "code_leading_pt": 7.4,
+    "header": "ICPC REFERENCE | KACTL + team notes",
+    "orientation": "landscape",
+    "max_pages": 25,
+    "code_empty_lines": 0
+  },
+  "languages": {
+    "cpp": {
+      "label": "C++",
+      "listings": "C++"
+    },
+    "java": {
+      "label": "Java",
+      "listings": "Java"
+    },
+    "python": {
+      "label": "Python",
+      "listings": "Python"
+    }
+  },
+  "topics": [
+    {
+      "title": "Programming languages",
+      "notes": "Indices are zero-based throughout. Graph vertices are 0..n-1. Snippets are independent; adapt the entry point to the judge's input format. KACTL C++ algorithms use the rep/all/sz macros and ll/pii/vi aliases in the starter. Headers are independent recipes; do not concatenate the entire library.",
+      "snippets": [
+        {
+          "title": "C++ contest template",
+          "path": "cpp/template.cpp",
+          "notes": "The supplied template, including all helpers. print/println concatenate arguments: pass spaces explicitly. flintln flushes with endl; dbg writes to stdout, so remove debug calls before submission.",
+          "language": "cpp"
+        },
+        {
+          "title": "Java template",
+          "path": "java/Main.java",
+          "notes": "Submit as Main.java. next() skips blank lines and returns null at EOF; nextInt() requires an available integer token. For a file, replace the reader with new FileReader(\"testfile.in\"). Flush output after each interactive query.",
+          "language": "java"
+        },
+        {
+          "title": "Python template",
+          "path": "python/template.py",
+          "notes": "This example expects exactly three integers on one line. For larger input, use sys.stdin.buffer.readline; for interactive output, print(..., flush=True).",
+          "language": "python"
+        }
+      ],
+      "id": "programming-languages"
+    },
+    {
+      "title": "Contest & debugging",
+      "id": "contest",
+      "kactl_chapter": "contest",
+      "blocks": [
+        {
+          "title": "Complexity quick reference",
+          "notes": "The source's input-size guide is a rough screening rule, not a runtime guarantee. Constants, language, hardware, memory and time limits matter. Estimate actual operation counts before choosing an algorithm.",
+          "table": {
+            "headers": [
+              "Input size (rough)",
+              "Candidate complexity"
+            ],
+            "rows": [
+              [
+                "n <= 10",
+                "O(n!)"
+              ],
+              [
+                "n <= 20",
+                "O(2^n)"
+              ],
+              [
+                "n <= 500",
+                "O(n^3)"
+              ],
+              [
+                "n <= 5000",
+                "O(n^2)"
+              ],
+              [
+                "n <= 10^6",
+                "O(n log n) or O(n)"
+              ],
+              [
+                "Very large n",
+                "O(log n) or O(1)"
+              ]
+            ],
+            "latex_rows": [
+              [
+                "$n \\le 10$",
+                "$O(n!)$"
+              ],
+              [
+                "$n \\le 20$",
+                "$O(2^n)$"
+              ],
+              [
+                "$n \\le 500$",
+                "$O(n^3)$"
+              ],
+              [
+                "$n \\le 5000$",
+                "$O(n^2)$"
+              ],
+              [
+                "$n \\le 10^6$",
+                "$O(n\\log n)$ or $O(n)$"
+              ],
+              [
+                "Very large $n$",
+                "$O(\\log n)$ or $O(1)$"
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": "Mathematics",
+      "id": "mathematics",
+      "kactl_chapter": "math"
+    },
+    {
+      "title": "Data structures & collections",
+      "id": "data-structures",
+      "kactl_chapter": "data-structures",
+      "blocks": [
+        {
+          "title": "C++ containers: calls & costs",
+          "facts": [
+            {
+              "title": "Common calls",
+              "text": "size(), empty(); begin()/end() delimit [first,last). Never dereference end(). front(), back(), top(), pop operations require nonempty containers. Most containers have clear(); stack, queue and priority_queue do not."
+            },
+            {
+              "title": "Costs",
+              "text": "vector: index O(1), push_back amortized O(1), middle insert/erase O(n). deque: index/end operations O(1), middle edits O(n). stack/queue: O(1) on default storage. Heap: top O(1), push/pop O(log n)."
+            },
+            {
+              "title": "Ordered vs hashed",
+              "text": "set/map: lookup/insert/key erase O(log n); multiset allows duplicates; count/equal_range also depend on matches. unordered_set/map: expected O(1), worst O(n) per lookup/update; adversarial hashes can be slow. Use member lower_bound on trees; std::lower_bound can take O(n) iterator steps."
+            },
+            {
+              "title": "Iterator lifetime",
+              "text": "vector reallocation invalidates all iterators/references; erase invalidates at/after the position. Tree insert preserves iterators, erase invalidates only erased elements. Hash rehash invalidates iterators. Avoid modifying a container while range-iterating unless validity is guaranteed."
+            }
+          ],
+          "snippets": [
+            {
+              "language": "cpp",
+              "title": "C++ container API",
+              "path": "topics/collections/cpp_containers.hpp",
+              "notes": "Independent call examples; replace values/types as needed. bitset<N> uses a compile-time N; bitwise operations process machine words. C++17 membership: find(x) != end() or count(x)."
+            }
+          ]
+        },
+        {
+          "title": "Arrays & collections",
+          "notes": "Hash tables: expected O(1) lookup/insert/remove. Java hash iteration costs O(size+capacity). Python dict preserves insertion order; hash sets and Java HashMap have no guaranteed order. Array/list indexing is O(1); append is amortized O(1); middle insertion/removal and value search are O(n). Java generics use wrappers (Integer, not int).",
+          "snippets": [
+            {
+              "title": "Arrays, matrix, sort and search",
+              "path": "topics/collections/ArraysReference.java",
+              "notes": "Arrays are fixed-size and zero-initialized (objects: null). Arrays.sort also accepts String[]. binarySearch requires the same ordering used to sort; an absent key returns -(insertion point)-1. Iterate each row's length for ragged matrices.",
+              "language": "java"
+            },
+            {
+              "title": "Lists and primitive arrays",
+              "path": "topics/collections/arrays.py",
+              "notes": "list is dynamic; array('i') stores C signed integers and can also append/pop. rows and cols must be nonnegative. Use independent row lists: [[0]*cols]*rows aliases rows.",
+              "language": "python"
+            },
+            {
+              "title": "ArrayList",
+              "path": "topics/collections/Lists.java",
+              "notes": "remove(int) removes by index; remove(Object) removes the first equal value. get/set/remove indices must exist; insertion allows index size().",
+              "language": "java"
+            },
+            {
+              "title": "Hash set",
+              "path": "topics/collections/sets.py",
+              "notes": "Elements must be hashable. remove raises KeyError if absent; discard does not. pop removes an arbitrary element and raises KeyError on an empty set.",
+              "language": "python"
+            },
+            {
+              "title": "HashSet",
+              "path": "topics/collections/Sets.java",
+              "notes": "add/remove return whether the set changed. Duplicate insertion is ignored. Custom keys need consistent equals and hashCode.",
+              "language": "java"
+            },
+            {
+              "title": "Dictionary",
+              "path": "topics/collections/maps.py",
+              "notes": "Keys must be hashable. d[key] raises KeyError if missing; get(key, fallback) is safe. Assignment and update overwrite existing values. Do not change dictionary size during iteration.",
+              "language": "python"
+            },
+            {
+              "title": "HashMap",
+              "path": "topics/collections/Maps.java",
+              "notes": "put/remove return the previous value, or null if absent. get can return null; unboxing null throws. containsValue is O(n). getOrDefault uses the fallback only for absent keys, not keys mapped to null.",
+              "language": "java"
+            },
+            {
+              "title": "Queue, stack and deque",
+              "path": "topics/collections/Queues.java",
+              "notes": "FIFO: offer/poll; LIFO: push/pop. ArrayDeque rejects null. peek/poll return null on empty; pop/removeFirst/removeLast throw. End insertions/removals are amortized O(1).",
+              "language": "java"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Numerical algorithms",
+      "id": "numerical",
+      "kactl_chapter": "numerical"
+    },
+    {
+      "title": "Number theory & modular arithmetic",
+      "id": "number-theory",
+      "kactl_chapter": "number-theory",
+      "blocks": [
+        {
+          "title": "Modular arithmetic: rules & safe recipes",
+          "facts": [
+            {
+              "title": "Residues & overflow",
+              "text": "Use m > 0; normalize to [0,m). C++ % may be negative. Cast BEFORE arithmetic: (__int128)a*b; assigning a*b to __int128 afterwards is too late. Even (a%m+m)%m can overflow for large m. The helpers below accept signed 64-bit a,b and positive signed 64-bit m."
+            },
+            {
+              "title": "Division & cancellation",
+              "text": "a/b mod m means a * inverse(b,m), defined only when gcd(b,m)=1. For example, inverse(3,8)=3 but inverse(2,8) does not exist. ax == ay mod m implies x == y mod (m/gcd(a,m)), not necessarily modulo m.",
+              "latex": "$a/b\\pmod m$ means $a\\,b^{-1}\\pmod m$, defined only if $\\gcd(b,m)=1$. Example: $3^{-1}\\equiv3\\pmod8$; $2^{-1}$ does not exist modulo 8. From $ax\\equiv ay\\pmod m$, infer $x\\equiv y\\pmod{m/\\gcd(a,m)}$."
+            },
+            {
+              "title": "Exponent rules",
+              "text": "Prime p: a^(p-1)=1 mod p only if p does not divide a; inverse(a,p)=a^(p-2) mod p. General m: a^phi(m)=1 mod m only if gcd(a,m)=1. Reduce exponents modulo p-1 or phi(m) only under these coprimality conditions. Negative exponents require an inverse.",
+              "latex": "Prime $p$: $a^{p-1}\\equiv1\\pmod p$ only if $p\\nmid a$; then $a^{-1}\\equiv a^{p-2}\\pmod p$. General $m$: $a^{\\phi(m)}\\equiv1\\pmod m$ only if $\\gcd(a,m)=1$. Reduce exponents modulo $p-1$ or $\\phi(m)$ only with these conditions. Negative exponents require an inverse."
+            },
+            {
+              "title": "Linear congruences",
+              "text": "ax == b mod m: let g=gcd(a,m). Solvable iff g divides b; divide a,b,m by g and invert a/g modulo m/g. Exactly g residues modulo m: x0+k*(m/g), 0<=k<g. Example: 6x==8 mod14 gives x=6,13.",
+              "latex": "$ax\\equiv b\\pmod m$: let $g=\\gcd(a,m)$. Solvable iff $g\\mid b$; divide $a,b,m$ by $g$ and invert $a/g$ modulo $m/g$. Exactly $g$ residues: $x_0+k(m/g)$, $0\\le k<g$. Example: $6x\\equiv8\\pmod{14}$ gives $x=6,13$."
+            },
+            {
+              "title": "CRT compatibility",
+              "text": "x==a mod m and x==b mod n are compatible iff gcd(m,n) divides b-a. The merged solution is unique modulo lcm(m,n). Solve m*t==b-a mod n, then x=a+m*t. Use wide intermediates and ensure the combined modulus fits your type; see KACTL CRT below.",
+              "latex": "$x\\equiv a\\pmod m$, $x\\equiv b\\pmod n$ are compatible iff $\\gcd(m,n)\\mid(b-a)$. The solution is unique modulo $\\operatorname{lcm}(m,n)$. Solve $mt\\equiv b-a\\pmod n$, then $x=a+mt$. Use wide intermediates and check that the combined modulus fits; see KACTL CRT below."
+            },
+            {
+              "title": "Binomial coefficients",
+              "text": "For prime p and 0<=n<p, precompute fact[i]=i*fact[i-1] mod p, invfact[n]=fact[n]^(p-2) mod p, invfact[i-1]=i*invfact[i] mod p. Then C(n,k)=fact[n]*invfact[k]*invfact[n-k] mod p (0 if k outside [0,n]). O(n+log p) setup, O(1) query. For n>=p, factorial inversion fails; use Lucas/prime-power methods. For any modulus, Pascal recurrence works without division.",
+              "latex": "For prime $p$ and $0\\le n<p$, precompute $f_i=i f_{i-1}\\bmod p$, $h_n=f_n^{p-2}\\bmod p$, $h_{i-1}=i h_i\\bmod p$, with $f_0=1$. Then $\\binom nk=f_nh_kh_{n-k}\\bmod p$ (0 if $k\\notin[0,n]$). $O(n+\\log p)$ setup, $O(1)$ query. For $n\\ge p$, factorial inversion fails; use Lucas/prime-power methods. Pascal recurrence works for any modulus without division."
+            },
+            {
+              "title": "Geometric sums",
+              "text": "(1+r+...+r^(n-1))=(r^n-1)/(r-1) mod m only when r-1 is invertible. Without division, compute pair (r^n,S_n) by doubling: P_2n=P_n^2, S_2n=S_n*(1+P_n); append one term for odd n. Base P_0=1 mod m, S_0=0.",
+              "latex": "$S_n=1+r+\\cdots+r^{n-1}=(r^n-1)/(r-1)\\pmod m$ only if $r-1$ is invertible. Without division, double $(P_n,S_n)$: $P_{2n}=P_n^2$, $S_{2n}=S_n(1+P_n)$; append one term for odd $n$. Base $P_0=1\\bmod m$, $S_0=0$."
+            }
+          ],
+          "snippets": [
+            {
+              "language": "cpp",
+              "title": "Runtime modulus, inverse & congruence",
+              "path": "topics/modular_arithmetic/modular.hpp",
+              "notes": "Requires the C++ template. inverse returns nullopt when no inverse exists (also for m=1); linear handles m=1 and a=0. All parameters are explicit; no hardcoded modulus. KACTL below adds discrete logs, modular roots, sieves and CRT."
+            }
+          ]
+        },
+        {
+          "title": "Numeral systems",
+          "notes": "For digits d[k]...d[0] in base b, value = sum(d[i]*b^i). Bases here are 2..36 with digits 0-9,a-z. Parsing invalid digits fails. Conversion takes O(number of digits) arithmetic steps; Python large-integer arithmetic has additional bit costs.",
+          "snippets": [
+            {
+              "title": "Parse and format any base",
+              "path": "topics/numeral_systems/base_conversion.py",
+              "notes": "Handles zero and negatives. bin adds 0b (negative values start -0b); format(x, 'b') omits the prefix. int(text, base) accepts upper/lower-case letters.",
+              "language": "python"
+            },
+            {
+              "title": "Integer base conversions",
+              "path": "topics/numeral_systems/BaseConversion.java",
+              "notes": "parseInt requires a signed 32-bit result, otherwise NumberFormatException. toBinaryString prints negative ints as 32-bit two's complement; toString(value, 2) prints a minus sign. Use .equals for Java string comparisons.",
+              "language": "java"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Combinatorics",
+      "id": "combinatorics",
+      "kactl_chapter": "combinatorial"
+    },
+    {
+      "title": "Graphs & grids",
+      "id": "graphs",
+      "kactl_chapter": "graph",
+      "blocks": [
+        {
+          "title": "Graphs & grids",
+          "notes": "Adjacency lists use O(V+E) space. Add u->v for directed edges; add both directions for an undirected edge. DFS/BFS visit reachable vertices in O(V+E) time, O(V) extra space. An outer loop covers disconnected graphs; its roots count components only for undirected graphs. Mark on insertion to avoid duplicate stack/queue entries.",
+          "snippets": [
+            {
+              "title": "DFS: reachability and forest",
+              "path": "topics/graphs/dfs.py",
+              "notes": "Build adj = [[] for _ in range(n)]. Explicit stack avoids recursion depth limits. Traversal order may differ from recursive DFS; this version is for reachability, not recursive entry/exit times.",
+              "language": "python"
+            },
+            {
+              "title": "DFS: adjacency list and forest",
+              "path": "topics/graphs/DFS.java",
+              "notes": "graph(n) allocates n independent lists. Iterative reachability traversal; use an explicit call-frame stack when recursive entry/exit order matters.",
+              "language": "java"
+            },
+            {
+              "title": "BFS: distances and forest",
+              "path": "topics/graphs/bfs.py",
+              "notes": "dist[v] is the shortest number of edges from start; -1 means unreachable. Requires an unweighted graph. bfs_forest covers all vertices, without assigning unrelated roots a common distance.",
+              "language": "python"
+            },
+            {
+              "title": "BFS: distances and forest",
+              "path": "topics/graphs/BFS.java",
+              "notes": "The source examples used a queue; ArrayDeque gives amortized O(1) end operations. Mark each vertex before enqueueing it.",
+              "language": "java"
+            },
+            {
+              "title": "Four-neighbor flood fill",
+              "path": "topics/graphs/FloodFill.java",
+              "notes": "Rectangular grid. fill counts the unseen cells of the starting color reachable from (r,c), and updates seen. components returns all same-color region sizes. O(rows*cols) time and space overall; empty grids are supported.",
+              "language": "java"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Geometry",
+      "id": "geometry",
+      "kactl_chapter": "geometry"
+    },
+    {
+      "title": "Strings",
+      "id": "strings",
+      "kactl_chapter": "strings",
+      "blocks": [
+        {
+          "title": "C++ std::string",
+          "facts": [
+            {
+              "title": "Cost & lifetime",
+              "text": "Index/size: O(1); substr copies O(count); middle insert/erase/replace: O(n); find can be O(n*m) for pattern length m. Appending a character is amortized O(1). string_view is a non-owning view: the source must outlive it and not invalidate its storage. Byte indexing is not Unicode character indexing."
+            }
+          ],
+          "snippets": [
+            {
+              "language": "cpp",
+              "title": "String calls, parsing & input",
+              "path": "topics/strings/cpp_strings.hpp",
+              "notes": "substr(pos,count) truncates count at the end but throws if pos > size(). npos is unsigned: compare with string::npos; never test p >= 0. cctype functions require unsigned char conversion (or EOF)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Search, DP & optimization",
+      "id": "search-dp",
+      "kactl_chapter": "various",
+      "blocks": [
+        {
+          "title": "C++ lambdas & sorting",
+          "facts": [
+            {
+              "title": "Comparator contract",
+              "text": "comp(a,b) means a precedes b; it must be a strict weak ordering. Use <, never <=; comp(x,x) must be false. For tie breakers use tie(a.first,a.second) < tie(b.first,b.second), not subtraction (overflow). sort is unstable; stable_sort preserves equivalent elements."
+            },
+            {
+              "title": "Captures",
+              "text": "[] none; [x] snapshot by value; [&x] by reference; [=] implicit copies; [&] implicit references; [x,&y] mixed. mutable allows changing captured copies. Reference captures must outlive the lambda; a copied pointer still refers to the original object. Use -> ReturnType for explicit/recursive return types."
+            },
+            {
+              "title": "Useful algorithms",
+              "text": "sort and nth_element need random-access iterators. unique removes adjacent duplicates logically and returns a new end: erase the tail. next_permutation returns false and resets to ascending at the final permutation. min_element/max_element return end() for empty ranges; accumulate(...,0LL) uses a 64-bit sum."
+            }
+          ],
+          "snippets": [
+            {
+              "language": "cpp",
+              "title": "Sorting, bounds & lambda syntax",
+              "path": "topics/search/cpp_sort_lambdas.hpp",
+              "notes": "All iterator ranges are half-open. stable_sort is O(n log n) with enough extra memory, otherwise up to O(n log^2 n) comparisons. Lambda recursion shown below requires passing itself explicitly: fib(fib,n)."
+            }
+          ]
+        },
+        {
+          "title": "Search & dynamic programming",
+          "snippets": [
+            {
+              "title": "Binary search / first true",
+              "path": "topics/search/binary_search.py",
+              "notes": "binary_search requires an ascending sorted sequence; it returns any matching index or -1. first_true requires a false-then-true predicate on integer indices in [lo, hi). Example lower bound: first_true(0, len(a), lambda i: a[i] >= x). O(log n) predicate calls, O(1) auxiliary space.",
+              "language": "python"
+            },
+            {
+              "title": "Kadane: maximum subarray sum",
+              "path": "topics/dynamic_programming/kadane.py",
+              "notes": "O(n) time, O(1) auxiliary space. Handles all-negative input; a must be nonempty. ending is the best sum ending at the current position.",
+              "language": "python"
+            }
+          ]
+        },
+        {
+          "title": "Bit operations",
+          "snippets": [
+            {
+              "title": "Parity, masks, XOR and shifts",
+              "path": "topics/bitwise/Bitwise.java",
+              "notes": "XOR identities: x^x=0, x^0=x. unique assumes all other values occur an even number of times. XOR swap uses distinct storage; a temporary variable is clearer. x<<k multiplies by 2^k only without overflow; signed x>>k rounds toward negative infinity, unlike Java integer division for negative values. >>> shifts in zero bits. int shifts mask k with 31; long shifts mask with 63. Use 1L<<bit for long masks. Bit operations are not automatically faster than equivalent arithmetic.",
+              "language": "java"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Algorithm checklist",
+      "id": "techniques",
+      "kactl_chapter": "appendix"
+    }
+  ],
+  "kactl": {
+    "repository": "https://github.com/kth-competitive-programming/kactl",
+    "commit": "45ee3fa7e5263c0085e2dcee42c100eb1c30121a",
+    "content": "vendor/kactl/content",
+    "exclude": [
+      "contest/template.cpp"
+    ]
+  }
+}

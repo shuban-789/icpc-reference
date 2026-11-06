@@ -1,0 +1,70 @@
+% Shared layout; dimensions and fonts are parameters in reference.json.
+\documentclass[10pt,\Paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern,inconsolata}
+\usepackage[\Orientation,margin=\Margin mm,headheight=9pt,headsep=2mm,includehead]{geometry}
+\usepackage{multicol,listings,xcolor,fancyhdr,booktabs,textcomp}
+\usepackage{amsmath,amssymb,graphicx,adjustbox}
+\usepackage[inline]{enumitem}
+\usepackage[pdfencoding=auto,hidelinks]{hyperref}
+\hypersetup{pdftitle={ICPC Reference -- KACTL and team notes}}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\sffamily\fontsize{6.5}{7}\selectfont\SheetHeader}
+\fancyhead[R]{\sffamily\fontsize{6.5}{7}\selectfont\thepage/\pageref*{last-page}}
+\renewcommand{\headrulewidth}{0.2pt}
+\setlength{\columnsep}{\ColumnGap mm}
+\setlength{\columnseprule}{0.15pt}
+\setlength{\parindent}{0pt}\setlength{\parskip}{1pt}
+\setlength{\multicolsep}{0pt}\setlength{\emergencystretch}{1em}
+\raggedcolumns
+\setlist{nosep,leftmargin=1.2em,topsep=1pt}
+\makeatletter
+\newcommand{\KeepStart}[1]{\par\begingroup
+  \setlength{\dimen@}{#1}\vskip\dimen@\penalty9999\vskip-\dimen@\vskip0pt\endgroup}
+\def\toclevel@subsection{1}
+\def\toclevel@subsubsection{2}
+\def\toclevel@paragraph{3}
+\renewcommand\normalsize{\@setfontsize\normalsize{\BodySize}{\BodyLeading}%
+  \abovedisplayskip=3pt plus 1pt minus 1pt
+  \belowdisplayskip=3pt plus 1pt minus 1pt
+  \abovedisplayshortskip=1pt\belowdisplayshortskip=2pt}
+\renewcommand\small{\@setfontsize\small{\CodeSize}{\CodeLeading}}
+\renewcommand\footnotesize{\@setfontsize\footnotesize{\CodeSize}{\CodeLeading}}
+\renewcommand\subsection{\@startsection{subsection}{2}{0pt}{-3pt}{1pt}{\sffamily\bfseries\fontsize{8}{9}\selectfont}}
+\renewcommand\subsubsection{\@startsection{subsubsection}{3}{0pt}{-2pt}{1pt}{\sffamily\bfseries\normalsize}}
+\renewcommand\paragraph{\@startsection{paragraph}{4}{0pt}{-2pt}{1pt}{\sffamily\bfseries\normalsize}}
+\makeatother
+\setcounter{secnumdepth}{2}
+\definecolor{comment}{gray}{0.25}
+\lstdefinelanguage{raw}{}
+\lstset{language=C++,basicstyle=\ttfamily\fontsize{\CodeSize}{\CodeLeading}\selectfont,
+  keywordstyle=\bfseries,commentstyle=\color{comment},stringstyle=\color{black},
+  columns=fullflexible,keepspaces=true,upquote=true,showstringspaces=false,
+  tabsize=2,breaklines=true,breakatwhitespace=false,emptylines=\CodeEmptyLines,
+  breakindent=1em,postbreak=\mbox{\tiny$\hookrightarrow$\space},
+  aboveskip=1pt,belowskip=2pt,numbers=none,frame=none}
+\newcommand{\StartMenu}{\par{\sffamily\bfseries\fontsize{10}{11}\selectfont Section index}\par\smallskip}
+\newcommand{\MenuEntry}[3]{\noindent\hyperref[sec:#3]{\textbf{#1. #2}\hfill\pageref*{sec:#3}}\par}
+\newcommand{\Topic}[2]{%
+  \KeepStart{4\baselineskip}\addpenalty{-200}\vspace{4pt}\refstepcounter{section}\label{sec:#2}%
+  \pdfbookmark[0]{\thesection. #1}{section.#2}%
+  {\sffamily\bfseries\fontsize{9}{10}\selectfont\thesection. #1}\par\nobreak
+  \vspace{-3pt}\rule{\linewidth}{0.4pt}\par\nobreak}
+\newcommand{\Snippet}[3]{%
+  \KeepStart{3\baselineskip}\vspace{2pt}{\sffamily\bfseries #1\hfill\normalfont\sffamily\small #2}\par\nobreak
+  {\interlinepenalty=10000 #3\par}\nobreak}
+\newcommand{\TopicNote}[1]{{\interlinepenalty=10000 #1\par}\nobreak}
+\newcommand{\ReferenceFact}[1]{\par\noindent\textbf{#1.}\nobreakspace}
+\newcommand{\KactlSnippet}[2]{%
+  \KeepStart{3\baselineskip}\vspace{2pt}{\sffamily\bfseries #1\hfill\normalfont\ttfamily\fontsize{6}{7}\selectfont #2}\par\nobreak}
+\newcommand{\defdescription}[1]{#1\par\nobreak}
+\newcommand{\defusage}[1]{\textbf{Usage:} {\ttfamily #1}\par\nobreak}
+\newcommand{\deftime}[1]{\textbf{Time:} #1\par\nobreak}
+\newcommand{\defmemory}[1]{\textbf{Memory:} #1\par\nobreak}
+\newcommand{\leftcaption}[1]{\textbf{Needs:} {\ttfamily #1}\par\nobreak}
+\newcommand{\bigo}[1]{\ensuremath{\mathcal{O}\left(#1\right)}}
+% KACTL uses \tilde as a literal approximate/bit-inversion symbol in text.
+\renewcommand{\tilde}{\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}
+\newcommand{\FitDisplay}[1]{\[\begin{adjustbox}{max width=\linewidth}$\displaystyle #1$\end{adjustbox}\]}
+\pdfsuppresswarningpagegroup=1
