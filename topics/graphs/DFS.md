@@ -1,3 +1,6 @@
+# DFS
+
+```java
 import java.io.*;
 import java.util.*;
 
@@ -36,3 +39,4 @@ public class DFSDemo {
    for (int neighbor : adj[currentNode]) { dfs(neighbor); }
    }
 }
+```

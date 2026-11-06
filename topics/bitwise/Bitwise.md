@@ -1,3 +1,6 @@
+# Bitwise
+
+```java
 int num = 45;
 
 if ((num & 1) == 0) {
@@ -38,3 +41,4 @@ for (int num : nums) {
          unique ^= num;
 }
 System.out.println("Unique number: " + unique); // Outputs 4
+```

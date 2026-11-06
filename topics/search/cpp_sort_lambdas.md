@@ -1,3 +1,6 @@
+# cpp_sort_lambdas
+
+```cpp
 void sort_and_lambda_calls() {
   vector<int> v{4, 1, 4, 2};
   sort(v.begin(), v.end()); // ascending; O(n log n)
@@ -30,3 +33,4 @@ void sort_and_lambda_calls() {
   (void)occurrences; (void)rank; (void)found; (void)kth;
   (void)add; (void)fib;
 }
+```

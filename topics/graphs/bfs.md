@@ -1,3 +1,6 @@
+# bfs
+
+```python
 from collections import deque
 
 
@@ -35,3 +38,4 @@ for i in range(n):
                          for neighbor in adj[node]:
                                   if not visited[neighbor]:
                                           q.append(neighbor)
+```

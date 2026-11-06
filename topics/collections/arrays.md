@@ -1,3 +1,6 @@
+# arrays
+
+```python
 fruits = ["Apple", "Banana", "Mango"]
 
 
@@ -33,3 +36,4 @@ fruits.append("Orange") # Adds to the end
 
 
 fruits.pop(1)       # Removes index 1 ("Banana")
+```

@@ -1,3 +1,6 @@
+# Queues
+
+```java
 import java.util.Queue;
 import java.util.ArrayDeque;
 
@@ -45,3 +48,4 @@ public class StackExample {
     System.out.println("Remaining Stack: " + bookStack); // Output: [The Hobbit, Harry Potter]
   }
 }
+```

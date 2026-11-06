@@ -1,3 +1,6 @@
+# sets
+
+```python
 my_set = {1, 2, 3}
 
 
@@ -17,3 +20,4 @@ item = my_set.pop()
 
 
 my_set.clear()
+```

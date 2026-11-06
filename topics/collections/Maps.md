@@ -1,3 +1,6 @@
+# Maps
+
+```java
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,3 +39,4 @@ for (Map.Entry<String, Integer> entry : inventory.entrySet()) {
 System.out.println("Total unique items: " + inventory.size());
     }
 }
+```

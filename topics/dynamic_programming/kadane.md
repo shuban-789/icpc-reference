@@ -1,3 +1,6 @@
+# kadane
+
+```python
 def maxSubarraySum(arr):
 
 
@@ -27,3 +30,4 @@ def maxSubarraySum(arr):
 if __name__ == "__main__":
  arr = [2, 3, -8, 7, -1, 2, 3]
  print(maxSubarraySum(arr))
+```

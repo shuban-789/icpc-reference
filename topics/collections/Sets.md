@@ -1,3 +1,6 @@
+# Sets
+
+```java
 import java.util.HashSet;
 
 
@@ -35,3 +38,4 @@ public class HashSetExample {
     System.out.println("Size after clear: " + programmingLanguages.size()); // 0
     }
 }
+```

@@ -1,3 +1,6 @@
+# cpp_containers
+
+```cpp
 // C++17; use with the contest template. Ranges are [l,r).
 void container_calls() {
   vector<int> v(3, 0); // size 3, initialized to zero
@@ -50,3 +53,4 @@ void container_calls() {
   v.clear(); // size=0; capacity may remain
   (void)a; (void)inserted; (void)b; (void)n; (void)mask;
 }
+```

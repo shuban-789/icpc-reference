@@ -1,3 +1,6 @@
+# ArraysReference
+
+```java
 import java.util.Arrays;
 
 
@@ -31,3 +34,4 @@ for (int i = 0; i < matrix.length; i++) {
     }
     System.out.println();
 }
+```

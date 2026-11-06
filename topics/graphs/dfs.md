@@ -1,3 +1,6 @@
+# dfs
+
+```python
 import sys
 
 
@@ -34,3 +37,4 @@ def dfs(current_node):
 for i in range(n):
        if not visited[i]:
                dfs(i)
+```

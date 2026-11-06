@@ -1,3 +1,6 @@
+# prefix_sums
+
+```cpp
 // C++17; half-open ranges [l,r) and [r1,r2) throughout.
 struct PrefixSum {
   vector<long long> p;
@@ -19,3 +22,4 @@ struct PrefixSum2D {
     return p[r2][c2] - p[r1][c2] - p[r2][c1] + p[r1][c1];
   }
 };
+```

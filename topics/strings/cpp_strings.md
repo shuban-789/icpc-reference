@@ -1,3 +1,6 @@
+# cpp_strings
+
+```cpp
 // std::string stores bytes; positions/lengths use size_t.
 void string_calls() {
   string s = "abc", t(3, 'x');
@@ -32,3 +35,4 @@ void string_calls() {
 // After >>: cin.ignore(numeric_limits<streamsize>::max(),
 // '\n'); then getline. getline(cin >> ws,s) also discards
 // leading whitespace/blank lines (only if that is wanted).
+```

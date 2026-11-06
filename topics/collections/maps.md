@@ -1,3 +1,6 @@
+# maps
+
+```python
 # 1. Initialize the dictionary with numeric keys and values
 # Key: Student ID (int) -> Value: Exam Score (int)
 scores = {101: 85, 102: 92}
@@ -40,3 +43,4 @@ for student_id in scores.keys():
 
 for score in scores.values():
     print(f"Value: {score}")
+```

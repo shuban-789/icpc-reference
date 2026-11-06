@@ -1,3 +1,6 @@
+# binary_search
+
+```python
 def binary_search(arr: list[int], target: int) -> int:
     left, right = 0, len(arr) - 1
     while left <= right:
@@ -24,3 +27,4 @@ def binary_search_boundary(arr: list) -> int:
       else:
         left = mid + 1
     return left
+```

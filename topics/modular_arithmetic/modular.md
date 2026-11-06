@@ -1,3 +1,6 @@
+# modular
+
+```cpp
 // GNU C++17; signed 64-bit inputs, 1 <= m <= LLONG_MAX.
 // __int128 intermediates avoid signed overflow.
 namespace modular {
@@ -44,3 +47,4 @@ optional<pair<i64,i64>> linear(i64 a, i64 b, i64 m) {
                       step};
 }
 } // namespace modular
+```
